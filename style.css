@@ -1,0 +1,245 @@
+body{
+font-family: "Cambria Math", Cambria, serif;
+margin:0;
+background:#f4f6f9;
+}
+
+h1, h2, h3, h4, h5, h6{
+font-family: "Times New Roman", Times, serif;
+}
+
+
+/* HEADER */
+
+header{
+background:#800020;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+nav{
+margin-top:10px;
+}
+
+nav a{
+font-family: "Times New Roman", Times, serif;
+color:rgb(88, 4, 4);
+background:#fcfbfb;
+padding:8px 16px;
+margin:0 8px;
+text-decoration:none;
+font-weight:bold;
+border-radius:5px;
+display:inline-block;
+transition:0.3s;
+}
+
+nav a:hover{
+background:rgba(81, 73, 75, 0.364);
+transform:translateY(-2px);
+}
+
+
+/* PARAGRAPH TEXT */
+
+p{
+line-height:1.5;
+font-size:16px;
+max-width:900px;
+margin:10px auto;
+}
+
+
+/* HEADING SIZES */
+
+h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+h2{
+font-size:32px;
+margin-bottom:20px;
+}
+
+h3{
+font-size:20px;
+margin-bottom:10px;
+}
+
+
+/* SECTIONS */
+
+.section{
+display:none;
+padding:70px 20px;
+text-align:center;
+}
+
+#home{
+display:block;
+}
+
+
+/* HERO SECTION */
+
+.hero{
+background:
+linear-gradient(rgba(128,0,32,0.85), rgba(127,65,80,0.85)),
+url('https://images.unsplash.com/photo-1554224155-6726b3ff858f');
+background-size:cover;
+background-position:center;
+height:420px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.hero-content h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.hero-content p{
+font-size:18px;
+margin-bottom:20px;
+}
+
+.hero-btn{
+background:#56061a;
+color:white;
+padding:12px 25px;
+text-decoration:none;
+border-radius:5px;
+border:none;
+cursor:pointer;
+}
+
+.hero-btn:hover{
+background:#800020;
+}
+
+
+/* HOME CARDS */
+
+.home-cards{
+display:flex;
+justify-content:center;
+gap:30px;
+margin-top:40px;
+flex-wrap:wrap;
+}
+
+.card{
+background:white;
+padding:25px;
+width:230px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(92, 83, 83, 0.08);
+transition:all 0.3s ease;
+border:2px solid transparent;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 12px 28px rgba(0,0,0,0.18);
+border:2px solid #80002058;
+opacity:0.98;
+}
+
+
+/* BUTTONS */
+
+button{
+background:#800020;
+color:white;
+border:none;
+padding:10px 15px;
+cursor:pointer;
+border-radius:4px;
+}
+
+button:hover{
+background:#5a0016;
+}
+
+
+/* SERVICES */
+
+.services{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+margin-top:30px;
+}
+
+.service-box{
+background:white;
+padding:25px;
+width:250px;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+text-align:left;
+transition:0.3s;
+border:2px solid transparent;
+}
+
+.service-box:hover{
+box-shadow:0 10px 25px rgba(0,0,0,0.18);
+border:2px solid #800020;
+transform:translateY(-6px);
+opacity:0.98;
+}
+
+.service-box h3{
+text-align:center;
+}
+
+
+/* VIDEO */
+
+.video-container{
+display:flex;
+justify-content:center;
+margin-top:30px;
+}
+
+.about-video{
+width:280px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
+
+/* WHATSAPP LINK */
+
+.whatsapp-link{
+display:inline-flex;
+align-items:center;
+gap:10px;
+text-decoration:none;
+font-weight:bold;
+color:#25D366;
+font-size:18px;
+margin-top:15px;
+}
+
+.whatsapp-icon{
+width:28px;
+height:28px;
+}
+
+
+/* FOOTER */
+
+footer{
+background:#800020;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:40px;
+}
