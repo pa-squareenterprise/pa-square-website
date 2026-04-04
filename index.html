@@ -1,213 +1,573 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PA Square Enterprises</title>
-<link rel="stylesheet" href="style.css">
-</head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PA Square Enterprises | Finance & Accounting</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0B1F3A;--navy-deep:#070F1C;
+  --gold:#C9A84C;--gold-light:#E2C47A;--gold-pale:rgba(201,168,76,0.12);
+  --border:rgba(201,168,76,0.22);--white:#fff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy-deep);color:var(--white);overflow-x:hidden}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.05}
+.page{position:relative;z-index:1}
 
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(7,15,28,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 6vw;height:68px}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-mark{width:38px;height:38px;background:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);box-shadow:0 0 18px rgba(201,168,76,0.35)}
+.logo-text{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--white);line-height:1.2}
+.logo-text span{display:block;font-size:10px;font-weight:300;color:var(--gold-light);letter-spacing:2.5px;text-transform:uppercase;font-family:'DM Sans',sans-serif}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-cta{background:var(--gold)!important;color:var(--navy)!important;padding:8px 20px;border-radius:7px;font-weight:600!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none}
+.hamburger span{display:block;width:24px;height:2px;background:white;border-radius:2px;transition:.3s}
+
+/* SECTIONS */
+section{padding:100px 6vw;position:relative;overflow:hidden}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.h2{font-family:'Playfair Display',serif;font-size:clamp(28px,3.8vw,48px);font-weight:700;line-height:1.15;margin-bottom:18px}
+.sub{font-size:16px;font-weight:300;line-height:1.85;color:rgba(255,255,255,0.6);max-width:560px}
+
+/* HERO */
+#hero{min-height:100vh;background:linear-gradient(135deg,#050e1c 0%,#0B1F3A 55%,#091829 100%);display:flex;align-items:center;padding-top:120px}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%}
+.hero-left{animation:fadeUp .9s ease both}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-pale);border:1px solid var(--border);color:var(--gold);font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:6px 18px;border-radius:100px;margin-bottom:28px}
+.pulse{width:7px;height:7px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.4)}50%{box-shadow:0 0 0 6px rgba(201,168,76,0)}}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,64px);font-weight:700;line-height:1.08;margin-bottom:24px}
+.hero-title em{color:var(--gold);font-style:normal;display:block}
+.hero-subtitle{font-size:17px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:40px;max-width:500px}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--navy);padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;text-decoration:none;box-shadow:0 6px 24px rgba(201,168,76,.35);transition:all .2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-block}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 10px 32px rgba(201,168,76,.45)}
+.btn-ghost{border:1px solid rgba(255,255,255,.22);color:var(--white);padding:14px 32px;border-radius:8px;font-size:15px;font-weight:500;text-decoration:none;transition:all .2s;display:inline-block}
+.btn-ghost:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.hero-stats{display:flex;gap:0;margin-top:48px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;overflow:hidden;animation:fadeUp 1s .5s ease both}
+.hstat{flex:1;padding:20px 16px;text-align:center;border-right:1px solid var(--border)}
+.hstat:last-child{border-right:none}
+.hstat-n{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--gold);display:block}
+.hstat-l{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-top:3px;display:block}
+
+/* HERO RIGHT CARD */
+.hero-right{animation:fadeUp 1s .25s ease both}
+.dashboard-card{background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,.18);border-radius:20px;padding:30px 26px;backdrop-filter:blur(8px);animation:floatY 5s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.dc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.dc-title{font-size:12px;font-weight:500;color:rgba(255,255,255,.45);letter-spacing:1px;text-transform:uppercase}
+.dc-badge{font-size:11px;background:rgba(46,204,113,.1);color:#2ecc71;padding:4px 12px;border-radius:100px;border:1px solid rgba(46,204,113,.25)}
+.dc-metrics{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
+.dc-metric{background:rgba(255,255,255,.04);border-radius:12px;padding:16px 14px;border:1px solid rgba(255,255,255,.07)}
+.dc-metric-val{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white)}
+.dc-metric-val.gold{color:var(--gold)}
+.dc-metric-lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px}
+.mini-chart{display:flex;align-items:flex-end;gap:4px;height:52px;margin-bottom:22px}
+.bar{flex:1;border-radius:3px 3px 0 0;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.25);animation:growBar .8s ease both}
+.bar.hi{background:rgba(201,168,76,.45);border-color:var(--gold)}
+@keyframes growBar{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
+.dc-rows{display:flex;flex-direction:column;gap:10px}
+.dc-row{display:flex;align-items:center;gap:10px;font-size:12px}
+.dc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dc-row-lbl{color:rgba(255,255,255,.5);flex:1}
+.dc-row-bar{height:3px;border-radius:2px;background:rgba(255,255,255,.07);flex:2;overflow:hidden}
+.dc-row-fill{height:100%;border-radius:2px}
+.dc-row-pct{color:rgba(255,255,255,.7);font-weight:500;font-size:11px;min-width:28px;text-align:right}
+
+/* DOWNLOADS */
+#downloads{padding:26px 6vw;background:rgba(255,255,255,.025);border-top:1px solid rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.08);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.strip-lbl{font-size:11px;font-weight:600;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-right:6px}
+.dl-btn{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:9px 16px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500;transition:all .2s}
+.dl-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+/* ABOUT */
+#about{background:linear-gradient(180deg,#080f1c 0%,#0b1a30 100%)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-main-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:20px;padding:40px 34px;position:relative}
+.about-icon-ring{width:56px;height:56px;border-radius:14px;background:var(--gold-pale);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px}
+.about-main-card h3{font-family:'Playfair Display',serif;font-size:21px;margin-bottom:12px}
+.about-main-card p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.75}
+.float-badge{position:absolute;bottom:-18px;right:-18px;background:var(--gold);color:var(--navy);border-radius:14px;padding:16px 20px;box-shadow:0 12px 36px rgba(201,168,76,.35);text-align:center}
+.fb-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;display:block}
+.fb-txt{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.about-text .sub{margin-bottom:30px}
+.trust-list{display:flex;flex-direction:column;gap:10px}
+.trust-item{display:flex;align-items:center;gap:12px;font-size:14px;color:rgba(255,255,255,.65);padding:12px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;transition:all .2s}
+.trust-item:hover{border-color:var(--gold);color:var(--white)}
+.trust-dot{width:7px;height:7px;background:var(--gold);border-radius:50%;flex-shrink:0}
+
+/* SERVICES */
+#services{background:#050d1b}
+.svc-header{margin-bottom:52px}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.svc-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.12);border-radius:18px;padding:32px 26px;transition:all .35s;position:relative;overflow:hidden}
+.svc-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 15%,rgba(201,168,76,.09),transparent 60%);opacity:0;transition:opacity .35s}
+.svc-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-8px);background:rgba(255,255,255,.055)}
+.svc-card:hover::after{opacity:1}
+.svc-icon{font-size:28px;margin-bottom:16px;display:block}
+.svc-card h3{font-family:'Playfair Display',serif;font-size:19px;color:var(--white);margin-bottom:18px}
+.svc-list{list-style:none}
+.svc-list li{font-size:13.5px;color:rgba(255,255,255,.5);padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:9px;transition:color .2s}
+.svc-list li:last-child{border-bottom:none}
+.svc-list li:hover{color:rgba(255,255,255,.85)}
+.svc-list li::before{content:'';width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0}
+
+/* WHY US */
+#why{background:linear-gradient(180deg,#050d1b 0%,#091729 100%)}
+.why-header{text-align:center;max-width:540px;margin:0 auto 56px}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.why-card{text-align:center;padding:34px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;transition:all .3s}
+.why-card:hover{border-color:var(--gold);background:rgba(201,168,76,.06);transform:translateY(-6px)}
+.why-icon{font-size:32px;display:block;margin-bottom:16px}
+.why-card h4{font-family:'Playfair Display',serif;font-size:16px;color:var(--white);margin-bottom:10px}
+.why-card p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7}
+
+/* PROCESS */
+#process{background:#050d1b}
+.process-header{text-align:center;max-width:480px;margin:0 auto 60px}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.process-steps::before{content:'';position:absolute;top:36px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:0}
+.pstep{text-align:center;position:relative;z-index:1;padding:0 14px}
+.pstep-num{width:72px;height:72px;border-radius:50%;background:var(--gold-pale);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold);transition:all .3s}
+.pstep:hover .pstep-num{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.pstep h4{font-size:15px;font-weight:600;color:var(--white);margin-bottom:8px}
+.pstep p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.6}
+
+/* CONTACT */
+#contact{background:linear-gradient(180deg,#091729 0%,#050c1a 100%)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-info .sub{margin-bottom:38px}
+.c-items{display:flex;flex-direction:column;gap:18px}
+.c-item{display:flex;align-items:flex-start;gap:15px}
+.c-item-ico{width:44px;height:44px;flex-shrink:0;background:rgba(201,168,76,.1);border:1px solid var(--border);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.c-item-body{font-size:14px;color:rgba(255,255,255,.5);line-height:1.6}
+.c-item-body strong{display:block;color:var(--white);font-size:14px;margin-bottom:2px}
+.c-item-body a{color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+.c-item-body a:hover{color:var(--gold)}
+.contact-form{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:22px;padding:40px 36px}
+.cf-title{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:28px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{margin-bottom:16px}
+.fg label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,.4);margin-bottom:7px;letter-spacing:.5px;text-transform:uppercase}
+.fg input,.fg select,.fg textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:12px 15px;color:var(--white);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold)}
+.fg select option{background:#0B1F3A}
+.fg textarea{resize:vertical;min-height:96px}
+.form-submit{width:100%;background:var(--gold);color:var(--navy);border:none;border-radius:9px;padding:14px;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;margin-top:2px}
+.form-submit:hover{background:var(--gold-light);transform:translateY(-1px)}
+
+/* FOOTER */
+footer{background:#030810;border-top:1px solid rgba(201,168,76,.1);padding:28px 6vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer p{font-size:13px;color:rgba(255,255,255,.22)}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+
+/* WHATSAPP */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:999;background:#25D366;color:white;border-radius:50px;padding:12px 20px;display:flex;align-items:center;gap:10px;text-decoration:none;font-size:14px;font-weight:600;box-shadow:0 6px 28px rgba(37,211,102,.4);transition:all .2s}
+.wa-float:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(37,211,102,.5)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:48px}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .process-steps{grid-template-columns:1fr 1fr;gap:32px}
+  .process-steps::before{display:none}
+}
+@media(max-width:600px){
+  .nav-links{display:none;flex-direction:column;position:absolute;top:68px;left:0;width:100%;background:#070F1C;padding:20px 6vw;gap:14px;border-bottom:1px solid var(--border)}
+  .nav-links.open{display:flex}
+  .hamburger{display:flex}
+  .svc-grid,.why-grid,.process-steps{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  #downloads{flex-direction:column;align-items:flex-start}
+  .hero-stats{flex-wrap:wrap}
+  .hstat{min-width:calc(50% - 1px)}
+}
+</style>
+</head>
 <body>
 
-<header>
+<canvas id="bg-canvas"></canvas>
 
-<h1>PA Square Enterprises</h1>
-<p>Finance & Accounting Services</p>
+<div class="page">
 
+<!-- NAV -->
 <nav>
-<a href="#" onclick="showSection('home')">Home</a>
-<a href="#" onclick="showSection('about')">About Us</a>
-<a href="#" onclick="showSection('services')">Services</a>
-<a href="#" onclick="showSection('contact')">Contact</a>
+  <a href="#hero" class="nav-logo">
+    <div class="logo-mark">PA</div>
+    <div class="logo-text">PA Square Enterprises<span>Finance & Accounting</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+  <button class="hamburger" id="hamBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-</header>
-
-
-<!-- HOME SECTION -->
-
-<section id="home" class="section">
-
-<div class="hero">
-
-<div class="hero-content">
-
-<h1>Professional Finance & Accounting Solutions</h1>
-
-<p>
-Helping businesses manage accounting, taxation and compliance with accuracy and reliability.
-</p>
-
-<button onclick="showSection('services')" class="hero-btn">
-Explore Our Services
-</button>
-
-</div>
-
-</div>
-
-
-<div class="home-cards">
-
-<div class="card">
-
-<h3>Company Brochure</h3>
-<p>Download our professional brochure.</p>
-
-<a href="brochure.jpeg" download>
-<button>Download</button>
-</a>
-
-</div>
-
-
-<div class="card">
-
-<h3>Company Presentation</h3>
-<p>Download our proposal documents.</p>
-
-<a href="INVOICE OUTSOURCING STRATEGY PROPOSAL.pdf" download>
-<button>Download Outsourcing Services</button>
-</a>
-
-<br><br>
-
-<a href="Smart Accounting System for Your Business.pdf" download>
-<button>Download Accounting Services</button>
-</a>
-
-</div>
-
-
-<div class="card">
-
-<h3>Introduction Video</h3>
-<p>Watch our company introduction video.</p>
-
-<button onclick="showSection('about')">
-Watch Video
-</button>
-
-</div>
-
-</div>
-
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge"><div class="pulse"></div>Established 2025 · Tamil Nadu, India</div>
+      <h1 class="hero-title">Your Trusted Partner in<em>Finance & Compliance</em></h1>
+      <p class="hero-subtitle">We help businesses manage accounting, taxation, and statutory compliance with precision, integrity, and forward-thinking strategy.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-gold">Explore Services</a>
+        <a href="#contact" class="btn-ghost">Free Consultation</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><span class="hstat-n count-up" data-target="100" data-suffix="%">0%</span><span class="hstat-l">Compliance</span></div>
+        <div class="hstat"><span class="hstat-n count-up" data-target="3" data-suffix="+">0+</span><span class="hstat-l">Verticals</span></div>
+        <div class="hstat"><span class="hstat-n count-up" data-target="10" data-suffix="+">0+</span><span class="hstat-l">Clients</span></div>
+        <div class="hstat"><span class="hstat-n">24/7</span><span class="hstat-l">Support</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="dashboard-card">
+        <div class="dc-header">
+          <span class="dc-title">Financial Overview</span>
+          <span class="dc-badge">✓ All Compliant</span>
+        </div>
+        <div class="dc-metrics">
+          <div class="dc-metric"><div class="dc-metric-val gold">₹4.2L</div><div class="dc-metric-lbl">Tax Filed</div></div>
+          <div class="dc-metric"><div class="dc-metric-val">98%</div><div class="dc-metric-lbl">Accuracy</div></div>
+          <div class="dc-metric"><div class="dc-metric-val">On Time</div><div class="dc-metric-lbl">GST Returns</div></div>
+          <div class="dc-metric"><div class="dc-metric-val gold">₹0</div><div class="dc-metric-lbl">Penalties</div></div>
+        </div>
+        <div class="mini-chart">
+          <div class="bar" style="height:42%;animation-delay:.1s"></div>
+          <div class="bar" style="height:65%;animation-delay:.2s"></div>
+          <div class="bar" style="height:50%;animation-delay:.3s"></div>
+          <div class="bar" style="height:80%;animation-delay:.4s"></div>
+          <div class="bar" style="height:55%;animation-delay:.5s"></div>
+          <div class="bar hi" style="height:92%;animation-delay:.6s"></div>
+          <div class="bar" style="height:70%;animation-delay:.7s"></div>
+          <div class="bar" style="height:84%;animation-delay:.8s"></div>
+        </div>
+        <div class="dc-rows">
+          <div class="dc-row"><div class="dc-dot" style="background:#C9A84C"></div><span class="dc-row-lbl">Statutory</span><div class="dc-row-bar"><div class="dc-row-fill" style="width:80%;background:var(--gold)"></div></div><span class="dc-row-pct">80%</span></div>
+          <div class="dc-row"><div class="dc-dot" style="background:#5B9BD5"></div><span class="dc-row-lbl">Accounting</span><div class="dc-row-bar"><div class="dc-row-fill" style="width:65%;background:#5B9BD5"></div></div><span class="dc-row-pct">65%</span></div>
+          <div class="dc-row"><div class="dc-dot" style="background:#70C6A0"></div><span class="dc-row-lbl">Compliance</span><div class="dc-row-bar"><div class="dc-row-fill" style="width:50%;background:#70C6A0"></div></div><span class="dc-row-pct">50%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-
-<!-- ABOUT SECTION -->
-
-<section id="about" class="section">
-
-<h2>About Us</h2>
-
-<p>
-At PA Square Enterprises, we are committed to delivering excellence in finance, accounting, and statutory compliance services. 
-Established in 2025, our mission is to empower businesses with reliable financial management, regulatory adherence, and strategic insights that drive sustainable growth.
-
-We pride ourselves on being more than just service providers—we are trusted partners who ensure accuracy, transparency, and professionalism in every engagement. 
-Whether it’s managing complex compliance requirements, streamlining accounting processes, or offering forward-looking financial strategies, we help organizations navigate challenges with confidence and clarity.
-
-Our team combines expertise with integrity, enabling clients to focus on their core business while we safeguard their financial health. 
-With PA Square Enterprises, you gain a dependable ally dedicated to strengthening your business foundation and unlocking new opportunities for success.
-</p>
-
-<div class="video-container">
-
-<video class="about-video" controls>
-<source src="PA_Square_video.mp4" type="video/mp4">
-</video>
-
+<!-- DOWNLOADS -->
+<div id="downloads">
+  <span class="strip-lbl">Downloads</span>
+  <a class="dl-btn" href="brochure.jpeg" download>
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Company Brochure
+  </a>
+  <a class="dl-btn" href="INVOICE OUTSOURCING STRATEGY PROPOSAL.pdf" download>
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Invoice Outsourcing
+  </a>
+  <a class="dl-btn" href="Smart Accounting System for Your Business.pdf" download>
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Accounting Proposal
+  </a>
 </div>
 
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-main-card">
+        <div class="about-icon-ring">🏛️</div>
+        <h3>Built on Trust & Expertise</h3>
+        <p>Since 2025, we have been dedicated to delivering excellence across finance, accounting, and statutory compliance — giving Tamil Nadu businesses the confidence to grow without financial worry.</p>
+      </div>
+      <div class="float-badge">
+        <span class="fb-num">100%</span>
+        <span class="fb-txt">Client Satisfaction</span>
+      </div>
+    </div>
+    <div class="about-text reveal d1">
+      <span class="tag">About Us</span>
+      <h2 class="h2">We Are More Than Just Accountants</h2>
+      <p class="sub">At PA Square Enterprises, we combine deep expertise with integrity to simplify complex compliance requirements, streamline accounting processes, and deliver financial insights that fuel sustainable growth.</p>
+      <div class="trust-list">
+        <div class="trust-item"><div class="trust-dot"></div>Accurate, reliable financial management</div>
+        <div class="trust-item"><div class="trust-dot"></div>Full regulatory adherence & statutory compliance</div>
+        <div class="trust-item"><div class="trust-dot"></div>Transparent reporting & financial clarity</div>
+        <div class="trust-item"><div class="trust-dot"></div>Strategic insights that drive real growth</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-
-<!-- SERVICES SECTION -->
-
-<section id="services" class="section">
-
-<h2>Our Services</h2>
-
-<div class="services">
-
-<div class="service-box">
-
-<h3>Statutory Services</h3>
-
-<ul>
-<li>GST Filings</li>
-<li>Income Tax Return Filings</li>
-<li>TDS & TCS Filings</li>
-<li>PF & ESI Filings</li>
-</ul>
-
-</div>
-
-
-<div class="service-box">
-
-<h3>Finance & Accounting Services</h3>
-
-<ul>
-<li>End-to-End Accounting</li>
-<li>Financial Analysis</li>
-<li>Bank Reconciliations</li>
-<li>Financial Reporting</li>
-</ul>
-
-</div>
-
-
-<div class="service-box">
-
-<h3>Business Compliance Services</h3>
-
-<ul>
-<li>ROC Filings</li>
-<li>MSME Registration</li>
-<li>GST Registration</li>
-</ul>
-
-</div>
-
-</div>
-
+<!-- SERVICES -->
+<section id="services">
+  <div class="svc-header reveal">
+    <span class="tag">What We Offer</span>
+    <h2 class="h2">Comprehensive Financial Services</h2>
+    <p class="sub">End-to-end solutions across statutory compliance, accounting, and business registration — all under one roof.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card reveal">
+      <span class="svc-icon">📋</span>
+      <h3>Statutory Services</h3>
+      <ul class="svc-list">
+        <li>GST Filings</li><li>Income Tax Return Filings</li><li>TDS & TCS Filings</li><li>PF & ESI Filings</li>
+      </ul>
+    </div>
+    <div class="svc-card reveal d1">
+      <span class="svc-icon">📊</span>
+      <h3>Finance & Accounting</h3>
+      <ul class="svc-list">
+        <li>End-to-End Accounting</li><li>Financial Analysis</li><li>Bank Reconciliations</li><li>Financial Reporting</li>
+      </ul>
+    </div>
+    <div class="svc-card reveal d2">
+      <span class="svc-icon">🏢</span>
+      <h3>Business Compliance</h3>
+      <ul class="svc-list">
+        <li>ROC Filings</li><li>MSME Registration</li><li>GST Registration</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
-
-<!-- CONTACT SECTION -->
-
-<section id="contact" class="section">
-
-<h2>Contact Us</h2>
-
-<p>Email: pa_square_enterprise@zohomail.in</p>
-<p>Phone: 9751962727</p>
-
-<br>
-
-<a href="https://wa.me/919751962727" target="_blank" class="whatsapp-link">
-
-<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" 
-alt="WhatsApp" class="whatsapp-icon">
-
-Chat with us on WhatsApp
-
-</a>
-
+<!-- WHY US -->
+<section id="why">
+  <div class="why-header reveal">
+    <span class="tag">Why Choose Us</span>
+    <h2 class="h2">The PA Square Difference</h2>
+    <p class="sub" style="margin:0 auto">We bring more than numbers — we bring peace of mind and financial clarity.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal"><span class="why-icon">🎯</span><h4>Precision & Accuracy</h4><p>Every filing, report, and reconciliation handled with meticulous attention to detail.</p></div>
+    <div class="why-card reveal d1"><span class="why-icon">🔒</span><h4>Full Compliance</h4><p>We ensure your business stays fully compliant with all statutory and regulatory requirements.</p></div>
+    <div class="why-card reveal d2"><span class="why-icon">💡</span><h4>Strategic Insights</h4><p>Beyond compliance — we deliver financial intelligence for smarter business decisions.</p></div>
+    <div class="why-card reveal d3"><span class="why-icon">🤝</span><h4>Trusted Partnership</h4><p>Not just service providers — we are long-term partners invested in your success.</p></div>
+  </div>
 </section>
 
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-header reveal">
+    <span class="tag">How We Work</span>
+    <h2 class="h2">Simple 4-Step Process</h2>
+    <p class="sub" style="margin:0 auto">Getting started with PA Square is easy and fully transparent.</p>
+  </div>
+  <div class="process-steps">
+    <div class="pstep reveal"><div class="pstep-num">01</div><h4>Consultation</h4><p>We understand your business needs, goals, and compliance requirements.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-num">02</div><h4>Analysis</h4><p>Our team audits your current financial state and identifies compliance gaps.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-num">03</div><h4>Execution</h4><p>We handle all filings, reconciliations, and reporting with full precision.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-num">04</div><h4>Review & Report</h4><p>Clear reports and insights delivered so you stay informed always.</p></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <span class="tag">Get In Touch</span>
+      <h2 class="h2">Let's Work Together</h2>
+      <p class="sub">Have questions or ready to get started? Our team will get back to you promptly.</p>
+      <div class="c-items">
+        <div class="c-item"><div class="c-item-ico">📧</div><div class="c-item-body"><strong>Email Us</strong><a href="mailto:pa_square_enterprise@zohomail.in">pa_square_enterprise@zohomail.in</a></div></div>
+        <div class="c-item"><div class="c-item-ico">📞</div><div class="c-item-body"><strong>Call Us</strong><a href="tel:+919751962727">+91 97519 62727</a></div></div>
+        <div class="c-item"><div class="c-item-ico">📍</div><div class="c-item-body"><strong>Location</strong><span>Tamil Nadu, India</span></div></div>
+        <div class="c-item"><div class="c-item-ico">💬</div><div class="c-item-body"><strong>WhatsApp</strong><a href="https://wa.me/919751962727" target="_blank">Chat with us instantly</a></div></div>
+      </div>
+    </div>
+    <div class="contact-form reveal d1">
+      <div class="cf-title">Send Us a Message</div>
+      <div class="form-row">
+        <div class="fg"><label>Your Name</label><input type="text" placeholder="Full name"/></div>
+        <div class="fg"><label>Phone</label><input type="tel" placeholder="+91 XXXXX XXXXX"/></div>
+      </div>
+      <div class="fg"><label>Email</label><input type="email" placeholder="you@example.com"/></div>
+      <div class="fg">
+        <label>Service Interested In</label>
+        <select>
+          <option value="">Select a service</option>
+          <option>GST Filings</option><option>Income Tax Return</option>
+          <option>TDS & TCS Filings</option><option>PF & ESI Filings</option>
+          <option>End-to-End Accounting</option><option>Financial Reporting</option>
+          <option>ROC Filings</option><option>MSME / GST Registration</option><option>Other</option>
+        </select>
+      </div>
+      <div class="fg"><label>Message</label><textarea placeholder="Tell us about your requirements..."></textarea></div>
+      <button class="form-submit" id="submitBtn">Send Message →</button>
+    </div>
+  </div>
+</section>
 
 <footer>
-
-<p>© 2025 PA Square Enterprises. All Rights Reserved.</p>
-
+  <p>© 2025 PA Square Enterprises. All Rights Reserved. Tamil Nadu, India.</p>
+  <div class="footer-links">
+    <a href="#about">About</a><a href="#services">Services</a>
+    <a href="#process">Process</a><a href="#contact">Contact</a>
+  </div>
 </footer>
+</div>
 
+<a class="wa-float" href="https://wa.me/919751962727" target="_blank">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  Chat on WhatsApp
+</a>
 
-<script src="script.js"></script>
+<script>
+/* ── ANIMATED FINANCE BACKGROUND CANVAS ── */
+(function(){
+  const canvas=document.getElementById('bg-canvas');
+  const ctx=canvas.getContext('2d');
+  let W,H;
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=document.body.scrollHeight}
+  window.addEventListener('resize',resize);
+  resize();
 
+  const SYMS=['₹','$','%','GST','TDS','ITR','P&L','ROC','EMI','▲','▼','◆','✓'];
+  function rand(a,b){return a+Math.random()*(b-a)}
+
+  const items=[];
+  for(let i=0;i<80;i++){
+    const isShape=Math.random()<0.45;
+    items.push({
+      sym:SYMS[Math.floor(Math.random()*SYMS.length)],
+      isShape,shapeType:Math.floor(Math.random()*5),
+      x:rand(0,W),y:rand(0,H),
+      size:rand(10,46),speed:rand(.12,.45),
+      opacity:rand(.25,.9),drift:rand(-.25,.25),
+    });
+  }
+
+  function drawShapeItem(it){
+    const {x,y,size,opacity}=it;
+    ctx.strokeStyle=`rgba(201,168,76,${opacity})`;
+    ctx.fillStyle=`rgba(201,168,76,${opacity*0.12})`;
+    ctx.lineWidth=.8;
+    switch(it.shapeType){
+      case 0:{ // mini line chart
+        ctx.beginPath();
+        const pts=[[0,.6],[.3,.2],[.55,.45],[.8,.15],[1,0]];
+        pts.forEach(([px,py],i)=>{
+          const fx=x+px*size,fy=y+py*size;
+          i===0?ctx.moveTo(fx,fy):ctx.lineTo(fx,fy);
+        });
+        ctx.stroke();
+        ctx.lineTo(x+size,y+size);ctx.lineTo(x,y+size);ctx.closePath();ctx.fill();
+        break;}
+      case 1:{ // bar chart
+        const bw=size*.16;
+        [.5,.9,.65,.8,.45].forEach((h,i)=>{
+          const bx=x+i*(bw+2.5),bh=size*h,by=y+size-bh;
+          ctx.beginPath();ctx.rect(bx,by,bw,bh);ctx.fill();ctx.stroke();
+        });break;}
+      case 2:{ // pie/donut
+        ctx.beginPath();ctx.arc(x,y,size*.5,0,Math.PI*2);ctx.stroke();
+        ctx.beginPath();ctx.moveTo(x,y);ctx.arc(x,y,size*.5,-.3,Math.PI*.9);ctx.closePath();ctx.fill();
+        break;}
+      case 3:{ // ledger lines
+        ctx.strokeRect(x,y,size*1.1,size*.75);
+        ctx.beginPath();
+        ctx.moveTo(x+size*.38,y);ctx.lineTo(x+size*.38,y+size*.75);
+        for(let r=1;r<4;r++){ctx.moveTo(x,y+r*size*.18);ctx.lineTo(x+size*1.1,y+r*size*.18);}
+        ctx.stroke();break;}
+      case 4:{ // coin stack
+        for(let c=2;c>=0;c--){
+          ctx.beginPath();ctx.ellipse(x,y-c*4,size*.5,size*.2,0,0,Math.PI*2);
+          ctx.fill();ctx.stroke();
+        }break;}
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    items.forEach(it=>{
+      ctx.save();
+      if(!it.isShape){
+        ctx.fillStyle=`rgba(201,168,76,${it.opacity})`;
+        ctx.font=`${it.size}px 'DM Sans',sans-serif`;
+        ctx.fillText(it.sym,it.x,it.y);
+      } else drawShapeItem(it);
+      ctx.restore();
+      it.y-=it.speed; it.x+=it.drift;
+      if(it.y<-it.size*2){it.y=H+it.size;it.x=rand(0,W);}
+      if(it.x<-60)it.x=W+60;
+      if(it.x>W+60)it.x=-60;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  // Resize canvas height when page changes
+  const ro=new ResizeObserver(()=>{resize()});
+  ro.observe(document.body);
+})();
+
+/* ── SCROLL REVEAL ── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*70);});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ── ACTIVE NAV ── */
+const navAs=document.querySelectorAll('.nav-links a');
+const secs=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-130)cur=s.id;});
+  navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+},{passive:true});
+
+/* ── COUNT UP ── */
+function countUp(el){
+  const target=+el.dataset.target,suffix=el.dataset.suffix||'';
+  let start=null;
+  requestAnimationFrame(function step(ts){
+    if(!start)start=ts;
+    const p=Math.min((ts-start)/1800,1);
+    const e=1-(1-p)*(1-p);
+    el.textContent=Math.floor(e*target)+suffix;
+    if(p<1)requestAnimationFrame(step);
+  });
+}
+const cObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){countUp(e.target);cObs.unobserve(e.target);}});
+},{threshold:0.5});
+document.querySelectorAll('.count-up').forEach(el=>cObs.observe(el));
+
+/* ── HAMBURGER ── */
+document.getElementById('hamBtn').addEventListener('click',()=>{
+  document.getElementById('navLinks').classList.toggle('open');
+});
+navAs.forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('navLinks').classList.remove('open');
+}));
+
+/* ── FORM ── */
+document.getElementById('submitBtn').addEventListener('click',function(){
+  const n=document.querySelector('input[placeholder="Full name"]').value.trim();
+  if(!n){alert('Please enter your name.');return;}
+  this.textContent='✓ Message Sent!';
+  this.style.background='#27ae60';
+  setTimeout(()=>{this.textContent='Send Message →';this.style.background='';},3000);
+});
+</script>
 </body>
 </html>
