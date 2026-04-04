@@ -3,216 +3,455 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PA (Square) Enterprises | Finance & Accounting</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<title>PA Square Enterprises | Finance & Accounting</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --navy:#0B1F3A;--navy-deep:#070F1C;
-  --gold:#C9A84C;--gold-light:#E2C47A;--gold-pale:rgba(201,168,76,0.12);
-  --border:rgba(201,168,76,0.22);--white:#fff;
+  /* palette */
+  --ink:#0A1628;
+  --gold:#C8A84B;--gold2:#E2C97E;--gold3:rgba(200,168,75,.13);
+  --slate:#1E3A5F;
+  --cream:#FAF7F2;--cream2:#F2EDE4;--cream3:#EDE5D8;
+  --teal:#0D7A6B;--teal2:#0FA08D;--teal-pale:rgba(13,122,107,.08);
+  --rose:#C0392B;
+  --mid:#334E68;
+  --bdr-gold:rgba(200,168,75,.25);
+  --white:#fff;
 }
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--navy-deep);color:var(--white);overflow-x:hidden}
-#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.05}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Outfit',sans-serif;overflow-x:hidden;cursor:none}
+
+/* ── CURSOR ── */
+#cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,width .3s,height .3s,opacity .3s;mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .12s,top .12s,width .3s,height .3s;opacity:.6}
+body:not(:hover) #cursor,body:not(:hover) #cursor-ring{opacity:0}
+
+/* ── CANVAS ── */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ── PAGE WRAPPER ── */
 .page{position:relative;z-index:1}
 
-/* NAV */
-nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(7,15,28,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 6vw;height:68px}
-.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.logo-mark{width:38px;height:38px;background:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);box-shadow:0 0 18px rgba(201,168,76,0.35)}
-.logo-text{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--white);line-height:1.2}
-.logo-text span{display:block;font-size:10px;font-weight:300;color:var(--gold-light);letter-spacing:2.5px;text-transform:uppercase;font-family:'DM Sans',sans-serif}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+/* ══════════════ NAV ══════════════ */
+nav{
+  position:fixed;top:0;width:100%;z-index:500;
+  padding:0 5vw;height:70px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .4s,box-shadow .4s;
+}
+nav.scrolled{background:rgba(10,22,40,.96);backdrop-filter:blur(18px);box-shadow:0 1px 0 var(--bdr-gold)}
+.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logo-sq{
+  width:40px;height:40px;background:var(--gold);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--ink);
+  box-shadow:0 0 0 3px rgba(200,168,75,.2);
+  transition:transform .3s;
+}
+.nav-logo:hover .logo-sq{transform:rotate(10deg) scale(1.05)}
+.logo-words{line-height:1.15}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#fff;display:block}
+.logo-sub{font-size:9.5px;font-weight:400;color:var(--gold2);letter-spacing:2.5px;text-transform:uppercase;display:block}
+.nav-links{display:flex;gap:30px;list-style:none}
+.nav-links a{
+  color:rgba(255,255,255,.65);text-decoration:none;font-size:13.5px;font-weight:500;
+  position:relative;padding-bottom:3px;transition:color .2s;letter-spacing:.2px;
+}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--gold);transition:width .3s}
 .nav-links a:hover,.nav-links a.active{color:var(--gold)}
-.nav-cta{background:var(--gold)!important;color:var(--navy)!important;padding:8px 20px;border-radius:7px;font-weight:600!important}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none}
-.hamburger span{display:block;width:24px;height:2px;background:white;border-radius:2px;transition:.3s}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{
+  background:transparent!important;border:1.5px solid var(--gold)!important;
+  color:var(--gold)!important;padding:8px 22px;border-radius:6px;
+  transition:background .2s,color .2s!important;
+}
+.nav-cta:hover{background:var(--gold)!important;color:var(--ink)!important}
+.nav-cta::after{display:none!important}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:none;background:none;border:none;padding:4px}
+.hbg span{display:block;width:24px;height:2px;background:var(--gold);border-radius:2px;transition:.35s}
 
-/* SECTIONS */
-section{padding:100px 6vw;position:relative;overflow:hidden}
-.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
-.h2{font-family:'Playfair Display',serif;font-size:clamp(28px,3.8vw,48px);font-weight:700;line-height:1.15;margin-bottom:18px}
-.sub{font-size:16px;font-weight:300;line-height:1.85;color:rgba(255,255,255,0.6);max-width:560px}
+/* ══════════════ SECTION HELPERS ══════════════ */
+section{position:relative;overflow:hidden}
+.inner{padding:104px 5vw;position:relative;z-index:2}
+.tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;
+  margin-bottom:16px;
+}
+.tag::before{content:'';width:28px;height:1.5px;background:currentColor;flex-shrink:0}
+.h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,52px);font-weight:700;line-height:1.1;margin-bottom:18px}
+.lead{font-size:16px;font-weight:300;line-height:1.9;max-width:580px}
 
-/* HERO */
-#hero{min-height:100vh;background:linear-gradient(135deg,#050e1c 0%,#0B1F3A 55%,#091829 100%);display:flex;align-items:center;padding-top:120px}
-.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%}
-.hero-left{animation:fadeUp .9s ease both}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-pale);border:1px solid var(--border);color:var(--gold);font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:6px 18px;border-radius:100px;margin-bottom:28px}
-.pulse{width:7px;height:7px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.4)}50%{box-shadow:0 0 0 6px rgba(201,168,76,0)}}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,64px);font-weight:700;line-height:1.08;margin-bottom:24px}
-.hero-title em{color:var(--gold);font-style:normal;display:block}
-.hero-subtitle{font-size:17px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:40px;max-width:500px}
-.hero-actions{display:flex;gap:16px;flex-wrap:wrap}
-.btn-gold{background:var(--gold);color:var(--navy);padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;text-decoration:none;box-shadow:0 6px 24px rgba(201,168,76,.35);transition:all .2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-block}
-.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 10px 32px rgba(201,168,76,.45)}
-.btn-ghost{border:1px solid rgba(255,255,255,.22);color:var(--white);padding:14px 32px;border-radius:8px;font-size:15px;font-weight:500;text-decoration:none;transition:all .2s;display:inline-block}
-.btn-ghost:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
-.hero-stats{display:flex;gap:0;margin-top:48px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;overflow:hidden;animation:fadeUp 1s .5s ease both}
-.hstat{flex:1;padding:20px 16px;text-align:center;border-right:1px solid var(--border)}
-.hstat:last-child{border-right:none}
-.hstat-n{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--gold);display:block}
-.hstat-l{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-top:3px;display:block}
+/* ══════════════ HERO — DARK NAVY ══════════════ */
+#hero{
+  min-height:100vh;
+  background:linear-gradient(135deg,#060e1c 0%,#0A1628 50%,#0d1f38 100%);
+  display:flex;align-items:center;
+}
+.hero-inner{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center;
+  padding:110px 5vw 80px;width:100%;
+}
+.hero-left{animation:riseUp .9s cubic-bezier(.22,1,.36,1) both}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:9px;
+  border:1px solid var(--bdr-gold);background:rgba(200,168,75,.07);
+  color:var(--gold2);font-size:10.5px;font-weight:600;letter-spacing:3px;
+  text-transform:uppercase;padding:7px 18px;border-radius:100px;margin-bottom:30px;
+}
+.badge-dot{width:7px;height:7px;background:var(--gold);border-radius:50%;animation:ping 2s infinite;flex-shrink:0}
+@keyframes ping{0%,100%{box-shadow:0 0 0 0 rgba(200,168,75,.5)}60%{box-shadow:0 0 0 7px transparent}}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(38px,5.5vw,72px);font-weight:700;line-height:1.06;
+  color:#fff;margin-bottom:26px;
+}
+.hero-title .line2{color:var(--gold);display:block}
+.hero-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.85;margin-bottom:42px;max-width:480px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-solid{
+  background:var(--gold);color:var(--ink);padding:14px 34px;
+  border-radius:8px;font-size:14.5px;font-weight:600;text-decoration:none;
+  box-shadow:0 8px 28px rgba(200,168,75,.35);
+  transition:all .25s;border:none;cursor:none;font-family:'Outfit',sans-serif;display:inline-block;
+}
+.btn-solid:hover{background:var(--gold2);transform:translateY(-3px);box-shadow:0 14px 38px rgba(200,168,75,.45)}
+.btn-line{
+  border:1.5px solid rgba(255,255,255,.2);color:#fff;
+  padding:14px 34px;border-radius:8px;font-size:14.5px;font-weight:500;
+  text-decoration:none;transition:all .25s;display:inline-block;
+}
+.btn-line:hover{border-color:var(--gold);color:var(--gold);background:rgba(200,168,75,.06)}
+.hero-stats{
+  display:flex;gap:0;margin-top:52px;
+  border:1px solid var(--bdr-gold);border-radius:14px;overflow:hidden;
+  background:rgba(255,255,255,.03);backdrop-filter:blur(8px);
+  animation:riseUp .9s .4s cubic-bezier(.22,1,.36,1) both;
+}
+.hs{flex:1;padding:20px 14px;text-align:center;border-right:1px solid var(--bdr-gold)}
+.hs:last-child{border-right:none}
+.hs-n{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--gold);display:block}
+.hs-l{font-size:10px;color:rgba(255,255,255,.38);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;display:block}
 
-/* HERO RIGHT CARD */
-.hero-right{animation:fadeUp 1s .25s ease both}
-.dashboard-card{background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,.18);border-radius:20px;padding:30px 26px;backdrop-filter:blur(8px);animation:floatY 5s ease-in-out infinite}
-@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.dc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
-.dc-title{font-size:12px;font-weight:500;color:rgba(255,255,255,.45);letter-spacing:1px;text-transform:uppercase}
-.dc-badge{font-size:11px;background:rgba(46,204,113,.1);color:#2ecc71;padding:4px 12px;border-radius:100px;border:1px solid rgba(46,204,113,.25)}
-.dc-metrics{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
-.dc-metric{background:rgba(255,255,255,.04);border-radius:12px;padding:16px 14px;border:1px solid rgba(255,255,255,.07)}
-.dc-metric-val{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white)}
-.dc-metric-val.gold{color:var(--gold)}
-.dc-metric-lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px}
-.mini-chart{display:flex;align-items:flex-end;gap:4px;height:52px;margin-bottom:22px}
-.bar{flex:1;border-radius:3px 3px 0 0;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.25);animation:growBar .8s ease both}
-.bar.hi{background:rgba(201,168,76,.45);border-color:var(--gold)}
-@keyframes growBar{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
-.dc-rows{display:flex;flex-direction:column;gap:10px}
-.dc-row{display:flex;align-items:center;gap:10px;font-size:12px}
-.dc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.dc-row-lbl{color:rgba(255,255,255,.5);flex:1}
-.dc-row-bar{height:3px;border-radius:2px;background:rgba(255,255,255,.07);flex:2;overflow:hidden}
-.dc-row-fill{height:100%;border-radius:2px}
-.dc-row-pct{color:rgba(255,255,255,.7);font-weight:500;font-size:11px;min-width:28px;text-align:right}
+/* Hero right — floating dashboard */
+.hero-right{animation:riseUp 1s .2s cubic-bezier(.22,1,.36,1) both}
+.dash{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(200,168,75,.2);
+  border-radius:22px;padding:28px 24px;
+  backdrop-filter:blur(12px);
+  animation:floatY 6s ease-in-out infinite;
+}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.dash-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.dash-title{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.dash-ok{font-size:11px;color:#27ae60;background:rgba(39,174,96,.1);padding:4px 12px;border-radius:100px;border:1px solid rgba(39,174,96,.25)}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.dash-m{background:rgba(255,255,255,.045);border-radius:12px;padding:15px 13px;border:1px solid rgba(255,255,255,.07)}
+.dash-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff}
+.dash-val.g{color:var(--gold)}
+.dash-lbl{font-size:10px;color:rgba(255,255,255,.35);margin-top:3px}
+.spark{display:flex;align-items:flex-end;gap:3.5px;height:48px;margin-bottom:20px}
+.spk{
+  flex:1;border-radius:3px 3px 0 0;
+  background:rgba(200,168,75,.18);border-top:1.5px solid rgba(200,168,75,.4);
+  animation:growUp .7s ease both;transform-origin:bottom;
+}
+.spk.hi{background:rgba(200,168,75,.45);border-color:var(--gold)}
+@keyframes growUp{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.dash-rows{display:flex;flex-direction:column;gap:9px}
+.dr{display:flex;align-items:center;gap:9px;font-size:12px}
+.dr-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dr-lbl{color:rgba(255,255,255,.45);flex:1}
+.dr-track{height:3px;flex:2;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.dr-fill{height:100%;border-radius:2px;transition:width 1.5s ease}
+.dr-pct{color:rgba(255,255,255,.6);font-size:11px;font-weight:500;min-width:26px;text-align:right}
 
-/* DOWNLOADS */
-#downloads{padding:26px 6vw;background:rgba(255,255,255,.025);border-top:1px solid rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.08);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.strip-lbl{font-size:11px;font-weight:600;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-right:6px}
-.dl-btn{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:9px 16px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500;transition:all .2s}
-.dl-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
-
-/* ABOUT */
-#about{background:linear-gradient(180deg,#080f1c 0%,#0b1a30 100%)}
+/* ══════════════ ABOUT — WARM CREAM ══════════════ */
+#about{background:var(--cream)}
+#about .tag{color:var(--teal)}
+#about .h2{color:var(--ink)}
+#about .lead{color:var(--mid)}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.about-main-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:20px;padding:40px 34px;position:relative}
-.about-icon-ring{width:56px;height:56px;border-radius:14px;background:var(--gold-pale);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px}
-.about-main-card h3{font-family:'Playfair Display',serif;font-size:21px;margin-bottom:12px}
-.about-main-card p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.75}
-.float-badge{position:absolute;bottom:-18px;right:-18px;background:var(--gold);color:var(--navy);border-radius:14px;padding:16px 20px;box-shadow:0 12px 36px rgba(201,168,76,.35);text-align:center}
-.fb-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;display:block}
-.fb-txt{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
-.about-text .sub{margin-bottom:30px}
-.trust-list{display:flex;flex-direction:column;gap:10px}
-.trust-item{display:flex;align-items:center;gap:12px;font-size:14px;color:rgba(255,255,255,.65);padding:12px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;transition:all .2s}
-.trust-item:hover{border-color:var(--gold);color:var(--white)}
-.trust-dot{width:7px;height:7px;background:var(--gold);border-radius:50%;flex-shrink:0}
+.about-visual{position:relative}
+.acard{
+  background:var(--ink);border-radius:24px;padding:44px 38px;
+  position:relative;overflow:hidden;
+}
+.acard-glow{
+  position:absolute;top:-60px;right:-60px;width:220px;height:220px;
+  background:radial-gradient(circle,rgba(200,168,75,.18),transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+.acard-icon{
+  width:58px;height:58px;background:rgba(200,168,75,.12);border:1px solid var(--bdr-gold);
+  border-radius:16px;display:flex;align-items:center;justify-content:center;
+  font-size:26px;margin-bottom:22px;
+}
+.acard h3{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;margin-bottom:14px}
+.acard p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.8}
+.afloat{
+  position:absolute;bottom:-22px;right:-22px;
+  background:var(--gold);color:var(--ink);
+  border-radius:18px;padding:20px 24px;
+  box-shadow:0 16px 40px rgba(200,168,75,.38);
+  text-align:center;z-index:3;
+}
+.af-n{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;display:block}
+.af-t{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.about-text .lead{margin-bottom:34px}
+.trust-list{display:flex;flex-direction:column;gap:11px}
+.ti{
+  display:flex;align-items:center;gap:13px;font-size:14px;color:var(--mid);
+  padding:13px 17px;background:#fff;border:1px solid var(--cream3);
+  border-radius:12px;transition:all .25s;cursor:default;
+}
+.ti:hover{border-color:var(--teal);color:var(--ink);transform:translateX(5px);box-shadow:0 6px 20px rgba(13,122,107,.1)}
+.ti-dot{width:8px;height:8px;background:var(--teal);border-radius:50%;flex-shrink:0}
 
-/* SERVICES */
-#services{background:#050d1b}
-.svc-header{margin-bottom:52px}
+/* ══════════════ SERVICES — DEEP TEAL ══════════════ */
+#services{background:linear-gradient(135deg,#062820 0%,#093d32 60%,#074535 100%)}
+#services .tag{color:var(--gold2)}
+#services .h2{color:#fff}
+#services .lead{color:rgba(255,255,255,.55)}
+.svc-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:28px;flex-wrap:wrap}
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.svc-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.12);border-radius:18px;padding:32px 26px;transition:all .35s;position:relative;overflow:hidden}
-.svc-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 15%,rgba(201,168,76,.09),transparent 60%);opacity:0;transition:opacity .35s}
-.svc-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-8px);background:rgba(255,255,255,.055)}
-.svc-card:hover::after{opacity:1}
-.svc-icon{font-size:28px;margin-bottom:16px;display:block}
-.svc-card h3{font-family:'Playfair Display',serif;font-size:19px;color:var(--white);margin-bottom:18px}
-.svc-list{list-style:none}
-.svc-list li{font-size:13.5px;color:rgba(255,255,255,.5);padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:9px;transition:color .2s}
-.svc-list li:last-child{border-bottom:none}
-.svc-list li:hover{color:rgba(255,255,255,.85)}
-.svc-list li::before{content:'';width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0}
+.sc{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;padding:36px 28px;transition:all .4s;
+  position:relative;overflow:hidden;
+}
+.sc::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 70% 0%,rgba(200,168,75,.1),transparent 55%);
+  opacity:0;transition:opacity .4s;
+}
+.sc:hover{transform:translateY(-10px);border-color:rgba(200,168,75,.4);background:rgba(255,255,255,.08)}
+.sc:hover::before{opacity:1}
+.sc-num{
+  font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;
+  color:rgba(255,255,255,.06);position:absolute;top:16px;right:20px;line-height:1;
+}
+.sc-ico{font-size:30px;margin-bottom:18px;display:block}
+.sc h3{font-family:'Cormorant Garamond',serif;font-size:21px;color:#fff;margin-bottom:18px}
+.sc ul{list-style:none}
+.sc ul li{
+  font-size:13.5px;color:rgba(255,255,255,.55);
+  padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;gap:9px;transition:color .2s;
+}
+.sc ul li:last-child{border-bottom:none}
+.sc:hover ul li{color:rgba(255,255,255,.8)}
+.sc ul li::before{content:'';width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0}
 
-/* WHY US */
-#why{background:linear-gradient(180deg,#050d1b 0%,#091729 100%)}
-.why-header{text-align:center;max-width:540px;margin:0 auto 56px}
+/* ══════════════ WHY US — LIGHT SLATE BLUE ══════════════ */
+#why{background:linear-gradient(160deg,#EEF4FB 0%,#E4EEF8 50%,#DDE8F4 100%)}
+#why .tag{color:var(--slate)}
+#why .h2{color:var(--ink)}
+.why-head{text-align:center;max-width:540px;margin:0 auto 60px}
 .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.why-card{text-align:center;padding:34px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;transition:all .3s}
-.why-card:hover{border-color:var(--gold);background:rgba(201,168,76,.06);transform:translateY(-6px)}
-.why-icon{font-size:32px;display:block;margin-bottom:16px}
-.why-card h4{font-family:'Playfair Display',serif;font-size:16px;color:var(--white);margin-bottom:10px}
-.why-card p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7}
+.wc{
+  background:#fff;border:1px solid rgba(30,58,95,.08);
+  border-radius:20px;padding:34px 20px;text-align:center;
+  transition:all .35s;box-shadow:0 2px 12px rgba(30,58,95,.05);
+}
+.wc:hover{transform:translateY(-8px);border-color:var(--teal2);box-shadow:0 16px 40px rgba(13,122,107,.12)}
+.wc-ico{
+  width:60px;height:60px;border-radius:16px;margin:0 auto 18px;
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+  background:linear-gradient(135deg,#e8f5f2,#d2ede8);
+  transition:transform .3s;
+}
+.wc:hover .wc-ico{transform:scale(1.1) rotate(-5deg)}
+.wc h4{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--ink);margin-bottom:10px}
+.wc p{font-size:13px;color:var(--mid);line-height:1.7}
 
-/* PROCESS */
-#process{background:#050d1b}
-.process-header{text-align:center;max-width:480px;margin:0 auto 60px}
-.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
-.process-steps::before{content:'';position:absolute;top:36px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:0}
-.pstep{text-align:center;position:relative;z-index:1;padding:0 14px}
-.pstep-num{width:72px;height:72px;border-radius:50%;background:var(--gold-pale);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold);transition:all .3s}
-.pstep:hover .pstep-num{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-.pstep h4{font-size:15px;font-weight:600;color:var(--white);margin-bottom:8px}
-.pstep p{font-size:13px;color:rgba(255, 255, 255, 0.523);line-height:1.6}
+/* ══════════════ PROCESS — WHITE / SOFT ══════════════ */
+#process{background:#fff}
+#process .tag{color:var(--gold)}
+#process .h2{color:var(--ink)}
+.proc-head{text-align:center;max-width:480px;margin:0 auto 64px}
+.proc-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.proc-line{
+  position:absolute;top:44px;left:15%;right:15%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:0;
+}
+.pstep{text-align:center;padding:0 14px;position:relative;z-index:1}
+.ps-num{
+  width:88px;height:88px;border-radius:50%;
+  background:linear-gradient(135deg,var(--cream),var(--cream2));
+  border:2px solid var(--cream3);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 22px;
+  font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--ink);
+  transition:all .4s;position:relative;
+}
+.ps-num::after{
+  content:'';position:absolute;inset:-6px;border-radius:50%;
+  border:1.5px dashed var(--bdr-gold);opacity:0;transition:opacity .4s;
+  animation:spinRing 8s linear infinite;
+}
+@keyframes spinRing{to{transform:rotate(360deg)}}
+.pstep:hover .ps-num{background:var(--gold);color:var(--ink);border-color:var(--gold2)}
+.pstep:hover .ps-num::after{opacity:1}
+.pstep h4{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:10px}
+.pstep p{font-size:13px;color:var(--mid);line-height:1.65}
 
-/* CONTACT */
-#contact{background:linear-gradient(180deg,#091729 0%,#050c1a 100%)}
+/* ══════════════ CONTACT — INK / DARK NAVY ══════════════ */
+#contact{background:linear-gradient(160deg,#071020 0%,#0A1628 60%,#0d1e35 100%)}
+#contact .tag{color:var(--gold2)}
+#contact .h2{color:#fff}
+#contact .lead{color:rgba(255,255,255,.5)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-.contact-info .sub{margin-bottom:38px}
-.c-items{display:flex;flex-direction:column;gap:18px}
-.c-item{display:flex;align-items:flex-start;gap:15px}
-.c-item-ico{width:44px;height:44px;flex-shrink:0;background:rgba(201,168,76,.1);border:1px solid var(--border);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px}
-.c-item-body{font-size:14px;color:rgba(255,255,255,.5);line-height:1.6}
-.c-item-body strong{display:block;color:var(--white);font-size:14px;margin-bottom:2px}
-.c-item-body a{color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
-.c-item-body a:hover{color:var(--gold)}
-.contact-form{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:22px;padding:40px 36px}
-.cf-title{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:28px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fg{margin-bottom:16px}
-.fg label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,.4);margin-bottom:7px;letter-spacing:.5px;text-transform:uppercase}
-.fg input,.fg select,.fg textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:12px 15px;color:var(--white);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold)}
-.fg select option{background:#0B1F3A}
-.fg textarea{resize:vertical;min-height:96px}
-.form-submit{width:100%;background:var(--gold);color:var(--navy);border:none;border-radius:9px;padding:14px;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;margin-top:2px}
-.form-submit:hover{background:var(--gold-light);transform:translateY(-1px)}
+.ci-list{display:flex;flex-direction:column;gap:18px;margin-top:36px}
+.ci{display:flex;align-items:flex-start;gap:16px}
+.ci-ico{
+  width:46px;height:46px;flex-shrink:0;
+  background:rgba(200,168,75,.1);border:1px solid var(--bdr-gold);
+  border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:18px;
+  transition:all .25s;
+}
+.ci:hover .ci-ico{background:var(--gold);transform:scale(1.08)}
+.ci-body{font-size:14px;color:rgba(255,255,255,.45);line-height:1.6}
+.ci-body strong{display:block;color:#fff;font-size:14.5px;margin-bottom:2px}
+.ci-body a{color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
+.ci-body a:hover{color:var(--gold)}
 
-/* FOOTER */
-footer{background:#030810;border-top:1px solid rgba(201,168,76,.1);padding:28px 6vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-footer p{font-size:13px;color:rgba(255,255,255,.22)}
-.footer-links{display:flex;gap:20px}
-.footer-links a{font-size:13px;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s}
-.footer-links a:hover{color:var(--gold)}
+/* FORM */
+.cform{
+  background:rgba(255,255,255,.04);border:1px solid rgba(200,168,75,.2);
+  border-radius:24px;padding:44px 38px;
+}
+.cform-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;margin-bottom:30px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{margin-bottom:18px}
+.fg label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,.35);margin-bottom:8px;letter-spacing:.8px;text-transform:uppercase}
+.fg input,.fg select,.fg textarea{
+  width:100%;background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);border-radius:10px;
+  padding:13px 16px;color:#fff;font-size:14px;
+  font-family:'Outfit',sans-serif;outline:none;
+  transition:border-color .25s,background .25s;
+  appearance:none;
+}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(255,255,255,.25)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{
+  border-color:var(--gold);background:rgba(200,168,75,.06);
+}
+.fg select option{background:#0A1628;color:#fff}
+.fg textarea{resize:vertical;min-height:100px}
+.fsub{
+  width:100%;background:var(--gold);color:var(--ink);border:none;
+  border-radius:10px;padding:15px;font-size:15px;font-weight:600;
+  font-family:'Outfit',sans-serif;cursor:none;
+  transition:all .25s;margin-top:4px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.fsub:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 12px 30px rgba(200,168,75,.3)}
+.fsub.sending{opacity:.7;cursor:wait}
+.fsub.success{background:#27ae60;color:#fff}
+.fsub.error{background:#c0392b;color:#fff}
+.form-note{font-size:12px;color:rgba(255,255,255,.3);text-align:center;margin-top:14px;line-height:1.6}
+.form-note a{color:var(--gold);text-decoration:none}
 
-/* WHATSAPP */
-.wa-float{position:fixed;bottom:28px;right:28px;z-index:999;background:#25D366;color:white;border-radius:50px;padding:12px 20px;display:flex;align-items:center;gap:10px;text-decoration:none;font-size:14px;font-weight:600;box-shadow:0 6px 28px rgba(37,211,102,.4);transition:all .2s}
-.wa-float:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(37,211,102,.5)}
+/* ══════════════ FOOTER ══════════════ */
+footer{
+  background:#040b14;border-top:1px solid rgba(200,168,75,.12);
+  padding:30px 5vw;display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:14px;
+}
+footer p{font-size:12.5px;color:rgba(255,255,255,.2)}
+.flinks{display:flex;gap:20px}
+.flinks a{font-size:12.5px;color:rgba(255,255,255,.25);text-decoration:none;transition:color .2s}
+.flinks a:hover{color:var(--gold)}
 
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+/* ══════════════ WHATSAPP FLOAT ══════════════ */
+.wa{
+  position:fixed;bottom:28px;right:28px;z-index:600;
+  background:#25D366;color:#fff;border-radius:50px;
+  padding:12px 20px;display:flex;align-items:center;gap:9px;
+  text-decoration:none;font-size:13.5px;font-weight:600;
+  box-shadow:0 6px 28px rgba(37,211,102,.35);transition:all .25s;
+  animation:waBounce 3s 2s ease-in-out infinite;
+}
+@keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.wa:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 12px 36px rgba(37,211,102,.45);animation:none}
 
-/* RESPONSIVE */
+/* ══════════════ SCROLL REVEAL ══════════════ */
+@keyframes riseUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ══════════════ SECTION DIVIDERS ══════════════ */
+.divider{
+  height:80px;width:100%;position:relative;overflow:hidden;
+  margin-top:-1px;flex-shrink:0;
+}
+.divider svg{position:absolute;bottom:0;width:100%;height:100%}
+
+/* ══════════════ DOWNLOADS ══════════════ */
+#downloads{
+  background:var(--cream2);border-top:1px solid var(--cream3);
+  border-bottom:1px solid var(--cream3);
+  padding:26px 5vw;display:flex;align-items:center;gap:12px;flex-wrap:wrap;z-index:2;position:relative;
+}
+.dl-label{font-size:11px;font-weight:600;color:rgba(10,22,40,.35);letter-spacing:2.5px;text-transform:uppercase;margin-right:6px}
+.dl-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;border:1px solid var(--cream3);
+  color:var(--mid);padding:9px 16px;border-radius:8px;
+  text-decoration:none;font-size:13px;font-weight:500;
+  transition:all .2s;box-shadow:0 2px 6px rgba(0,0,0,.04);
+}
+.dl-btn:hover{border-color:var(--teal2);color:var(--teal);transform:translateY(-2px);box-shadow:0 6px 18px rgba(13,122,107,.12)}
+
+/* ══════════════ RESPONSIVE ══════════════ */
 @media(max-width:960px){
-  .hero-inner{grid-template-columns:1fr}
+  .hero-inner{grid-template-columns:1fr;padding:100px 5vw 60px}
   .hero-right{display:none}
   .about-grid,.contact-grid{grid-template-columns:1fr;gap:48px}
   .svc-grid{grid-template-columns:1fr 1fr}
   .why-grid{grid-template-columns:1fr 1fr}
-  .process-steps{grid-template-columns:1fr 1fr;gap:32px}
-  .process-steps::before{display:none}
+  .proc-steps{grid-template-columns:1fr 1fr;gap:32px}
+  .proc-line{display:none}
 }
 @media(max-width:600px){
-  .nav-links{display:none;flex-direction:column;position:absolute;top:68px;left:0;width:100%;background:#070F1C;padding:20px 6vw;gap:14px;border-bottom:1px solid var(--border)}
+  .nav-links{
+    display:none;flex-direction:column;position:absolute;
+    top:70px;left:0;width:100%;background:rgba(7,15,28,.97);
+    padding:20px 5vw;gap:16px;border-bottom:1px solid var(--bdr-gold);
+  }
   .nav-links.open{display:flex}
-  .hamburger{display:flex}
-  .svc-grid,.why-grid,.process-steps{grid-template-columns:1fr}
-  .form-row{grid-template-columns:1fr}
+  .hbg{display:flex}
+  .svc-grid,.why-grid,.proc-steps{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr}
   #downloads{flex-direction:column;align-items:flex-start}
   .hero-stats{flex-wrap:wrap}
-  .hstat{min-width:calc(50% - 1px)}
+  .hs{min-width:calc(50% - 1px)}
+  .cform{padding:30px 22px}
 }
 </style>
 </head>
 <body>
 
+<!-- CUSTOM CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- FLOATING FINANCE CANVAS -->
 <canvas id="bg-canvas"></canvas>
 
 <div class="page">
 
-<!-- NAV -->
-<nav>
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
   <a href="#hero" class="nav-logo">
-    <div class="logo-mark">PA</div>
-    <div class="logo-text">PA (Square) Enterprises<span>Finance & Accounting</span></div>
+    <div class="logo-sq">PA</div>
+    <div class="logo-words">
+      <span class="logo-name">PA Square Enterprises</span>
+      <span class="logo-sub">Finance & Accounting</span>
+    </div>
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">About</a></li>
@@ -221,66 +460,64 @@ footer p{font-size:13px;color:rgba(255,255,255,.22)}
     <li><a href="#process">Process</a></li>
     <li><a href="#contact" class="nav-cta">Contact Us</a></li>
   </ul>
-  <button class="hamburger" id="hamBtn" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hbg" id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO -->
+<!-- ═══ HERO — DARK NAVY ═══ -->
 <section id="hero">
   <div class="hero-inner">
     <div class="hero-left">
-      <div class="hero-badge"><div class="pulse"></div>Established 2025 · Tamil Nadu, India</div>
-      <h1 class="hero-title">Your Trusted Partner in<em>Finance & Compliance</em></h1>
-      <p class="hero-subtitle" style="color: var(--gold);">
-  Strive, Thrive, Drive - Accuracy
-</p>
-      <p class="hero-subtitle">We help businesses manage accounting, taxation, and statutory compliance with precision, integrity, and forward-thinking strategy.</p>
-      <div class="hero-actions">
-        <a href="#services" class="btn-gold">Explore Services</a>
-        <a href="#contact" class="btn-ghost">Free Consultation</a>
+      <div class="hero-badge"><div class="badge-dot"></div>Established 2025 · Tamil Nadu, India</div>
+      <h1 class="hero-title">
+        Your Trusted Partner in
+        <span class="line2">Finance & Compliance</span>
+      </h1>
+      <p class="hero-sub">We help businesses manage accounting, taxation, and statutory compliance with precision, integrity, and forward-thinking strategy.</p>
+      <div class="hero-btns">
+        <a href="#services" class="btn-solid">Explore Services</a>
+        <a href="#contact" class="btn-line">Free Consultation</a>
       </div>
       <div class="hero-stats">
-        <div class="hstat"><span class="hstat-n count-up" data-target="100" data-suffix="%">0%</span><span class="hstat-l">Compliance</span></div>
-        <div class="hstat"><span class="hstat-n count-up" data-target="3" data-suffix="+">0+</span><span class="hstat-l">Verticals</span></div>
-        <div class="hstat"><span class="hstat-n count-up" data-target="10" data-suffix="+">0+</span><span class="hstat-l">Clients</span></div>
-        <div class="hstat"><span class="hstat-n">24/7</span><span class="hstat-l">Support</span></div>
+        <div class="hs"><span class="hs-n cu" data-t="100" data-s="%">0%</span><span class="hs-l">Compliance</span></div>
+        <div class="hs"><span class="hs-n cu" data-t="3" data-s="+">0+</span><span class="hs-l">Verticals</span></div>
+        <div class="hs"><span class="hs-n cu" data-t="10" data-s="+">0+</span><span class="hs-l">Clients</span></div>
+        <div class="hs"><span class="hs-n">24/7</span><span class="hs-l">Support</span></div>
       </div>
     </div>
     <div class="hero-right">
-      <div class="dashboard-card">
-        <div class="dc-header">
-          <span class="dc-title">Financial Overview</span>
-          <span class="dc-badge">✓ All Compliant</span>
+      <div class="dash">
+        <div class="dash-head">
+          <span class="dash-title">Financial Overview</span>
+          <span class="dash-ok">✓ All Compliant</span>
         </div>
-        <div class="dc-metrics">
-          <div class="dc-metric"><div class="dc-metric-val">100%</div><div class="dc-metric-lbl">Accuracy</div></div>
-          <div class="dc-metric"><div class="dc-metric-val">On Time</div><div class="dc-metric-lbl">GST Returns</div></div>
-          <div class="dc-metric"><div class="dc-metric-val gold">₹0</div><div class="dc-metric-lbl">Penalties</div></div>
+        <div class="dash-grid">
+          <div class="dash-m"><div class="dash-val">98%</div><div class="dash-lbl">Accuracy</div></div>
+          <div class="dash-m"><div class="dash-val">On Time</div><div class="dash-lbl">GST Returns</div></div>
+          <div class="dash-m"><div class="dash-val g">₹0</div><div class="dash-lbl">Penalties</div></div>
         </div>
-        <div class="mini-chart">
-          <div class="bar" style="height:42%;animation-delay:.1s"></div>
-          <div class="bar" style="height:65%;animation-delay:.2s"></div>
-          <div class="bar" style="height:50%;animation-delay:.3s"></div>
-          <div class="bar" style="height:80%;animation-delay:.4s"></div>
-          <div class="bar" style="height:55%;animation-delay:.5s"></div>
-          <div class="bar hi" style="height:92%;animation-delay:.6s"></div>
-          <div class="bar" style="height:70%;animation-delay:.7s"></div>
-          <div class="bar" style="height:84%;animation-delay:.8s"></div>
+        <div class="spark">
+          <div class="spk" style="height:42%;animation-delay:.1s"></div>
+          <div class="spk" style="height:65%;animation-delay:.2s"></div>
+          <div class="spk" style="height:48%;animation-delay:.3s"></div>
+          <div class="spk" style="height:82%;animation-delay:.4s"></div>
+          <div class="spk" style="height:56%;animation-delay:.5s"></div>
+          <div class="spk hi" style="height:94%;animation-delay:.6s"></div>
+          <div class="spk" style="height:70%;animation-delay:.7s"></div>
+          <div class="spk" style="height:86%;animation-delay:.8s"></div>
         </div>
-        <div class="dc-rows">
-          <div class="dc-row"><div class="dc-dot" style="background:#C9A84C"></div><span class="dc-row-lbl">Statutory</span><div class="dc-row-bar"><div class="dc-row-fill" style="width:80%;background:var(--gold)"></div></div><span class="dc-row-pct">80%</span></div>
-          <div class="dc-row"><div class="dc-dot" style="background:#5B9BD5"></div><span class="dc-row-lbl">Accounting</span><div class="dc-row-bar"><div class="dc-row-fill" style="width:65%;background:#5B9BD5"></div></div><span class="dc-row-pct">65%</span></div>
-          <div class="dc-row"><div class="dc-dot" style="background:#70C6A0"></div><span class="dc-row-lbl">Compliance</span><div class="dc-row-bar"><div class="dc-row-fill" style="width:50%;background:#70C6A0"></div></div><span class="dc-row-pct">50%</span></div>
+        <div class="dash-rows">
+          <div class="dr"><div class="dr-dot" style="background:#C8A84B"></div><span class="dr-lbl">Statutory</span><div class="dr-track"><div class="dr-fill" style="width:80%;background:#C8A84B"></div></div><span class="dr-pct">80%</span></div>
+          <div class="dr"><div class="dr-dot" style="background:#5B9BD5"></div><span class="dr-lbl">Accounting</span><div class="dr-track"><div class="dr-fill" style="width:65%;background:#5B9BD5"></div></div><span class="dr-pct">65%</span></div>
+          <div class="dr"><div class="dr-dot" style="background:#0D7A6B"></div><span class="dr-lbl">Compliance</span><div class="dr-track"><div class="dr-fill" style="width:50%;background:#0D7A6B"></div></div><span class="dr-pct">50%</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DOWNLOADS -->
-<div id="downloads">
-  <span class="strip-lbl">Downloads</span>
+<!-- ═══ DOWNLOADS — CREAM STRIP ═══ -->
+<div id="downloads" style="position:relative;z-index:2">
+  <span class="dl-label">Downloads</span>
   <a class="dl-btn" href="brochure.jpeg" download>
     <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Company Brochure
   </a>
@@ -292,205 +529,248 @@ footer p{font-size:13px;color:rgba(255,255,255,.22)}
   </a>
 </div>
 
-<!-- ABOUT -->
+<!-- ═══ ABOUT — WARM CREAM ═══ -->
 <section id="about">
-  <div class="about-grid">
-    <div class="about-visual reveal">
-      <div class="about-main-card">
-        <div class="about-icon-ring">🏛️</div>
-        <h3>Built on Trust & Expertise</h3>
-        <p>Since 2025, We deliver excellence in finance, accounting, and compliance—empowering businesses across India to scale with confidence and clarity.</p>
+  <div class="inner">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="acard">
+          <div class="acard-glow"></div>
+          <div class="acard-icon">🏛️</div>
+          <h3>Built on Trust & Expertise</h3>
+          <p>Established in 2025, we are dedicated to delivering excellence in finance, accounting, and statutory compliance. Our mission is to empower businesses across India with the financial clarity and confidence they need to scale without boundaries.</p>
+        </div>
       </div>
-    </div>
-    <div class="about-text reveal d1">
-      <span class="tag">About Us</span>
-      <h2 class="h2">We Are More Than Just Accountants</h2>
-      <p class="sub">At PA (Square) Enterprises, we combine deep expertise with integrity to simplify complex compliance requirements, streamline accounting processes, and deliver financial insights that fuel sustainable growth.</p>
-      <div class="trust-list">
-        <div class="trust-item"><div class="trust-dot"></div>Accurate, reliable financial management</div>
-        <div class="trust-item"><div class="trust-dot"></div>Full regulatory adherence & statutory compliance</div>
-        <div class="trust-item"><div class="trust-dot"></div>Transparent reporting & financial clarity</div>
-        <div class="trust-item"><div class="trust-dot"></div>Strategic insights that drive real growth</div>
+      <div class="about-text reveal d1">
+        <span class="tag">About Us</span>
+        <h2 class="h2">We Are More Than Just Accountants</h2>
+        <p class="lead">At PA Square Enterprises, we combine deep expertise with integrity to simplify complex compliance requirements, streamline accounting, and deliver strategic financial insights that fuel sustainable growth.</p>
+        <div class="trust-list">
+          <div class="ti"><div class="ti-dot"></div>Accurate, reliable financial management</div>
+          <div class="ti"><div class="ti-dot"></div>Full regulatory adherence & statutory compliance</div>
+          <div class="ti"><div class="ti-dot"></div>Transparent reporting & financial clarity</div>
+          <div class="ti"><div class="ti-dot"></div>Strategic insights that drive real growth</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- ═══ SERVICES — DEEP TEAL ═══ -->
 <section id="services">
-  <div class="svc-header reveal">
-    <span class="tag">What We Offer</span>
-    <h2 class="h2">Comprehensive Financial Services</h2>
-    <p class="sub">End-to-end solutions across statutory compliance, accounting, and business registration — all under one roof.</p>
-  </div>
-  <div class="svc-grid">
-    <div class="svc-card reveal">
-      <span class="svc-icon">📋</span>
-      <h3>Statutory Services</h3>
-      <ul class="svc-list">
-        <li>GST Filings</li><li>Income Tax Return Filings</li><li>TDS & TCS Filings</li><li>PF & ESI Filings</li>
-      </ul>
+  <div class="inner">
+    <div class="svc-top">
+      <div class="reveal">
+        <span class="tag">What We Offer</span>
+        <h2 class="h2">Comprehensive<br>Financial Services</h2>
+      </div>
+      <p class="lead reveal d1" style="max-width:300px;text-align:right">End-to-end solutions across statutory, accounting & compliance — all under one roof.</p>
     </div>
-    <div class="svc-card reveal d1">
-      <span class="svc-icon">📊</span>
-      <h3>Finance & Accounting</h3>
-      <ul class="svc-list">
-        <li>End-to-End Accounting</li><li>Financial Analysis</li><li>Bank Reconciliations</li><li>Financial Reporting</li>
-      </ul>
-    </div>
-    <div class="svc-card reveal d2">
-      <span class="svc-icon">🏢</span>
-      <h3>Business Compliance</h3>
-      <ul class="svc-list">
-        <li>ROC Filings</li><li>MSME Registration</li><li>GST Registration</li>
-      </ul>
+    <div class="svc-grid">
+      <div class="sc reveal">
+        <span class="sc-num">01</span>
+        <span class="sc-ico">📋</span>
+        <h3>Statutory Services</h3>
+        <ul><li>GST Filings</li><li>Income Tax Returns</li><li>TDS & TCS Filings</li><li>PF & ESI Filings</li></ul>
+      </div>
+      <div class="sc reveal d1">
+        <span class="sc-num">02</span>
+        <span class="sc-ico">📊</span>
+        <h3>Finance & Accounting</h3>
+        <ul><li>End-to-End Accounting</li><li>Financial Analysis</li><li>Bank Reconciliations</li><li>Financial Reporting</li></ul>
+      </div>
+      <div class="sc reveal d2">
+        <span class="sc-num">03</span>
+        <span class="sc-ico">🏢</span>
+        <h3>Business Compliance</h3>
+        <ul><li>ROC Filings</li><li>MSME Registration</li><li>GST Registration</li></ul>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- WHY US -->
+<!-- ═══ WHY US — LIGHT BLUE ═══ -->
 <section id="why">
-  <div class="why-header reveal">
-    <span class="tag">Why Choose Us</span>
-    <h2 class="h2">The PA (Square) Difference</h2>
-    <p class="sub" style="margin:0 auto">We bring more than numbers — we bring peace of mind and financial clarity.</p>
-  </div>
-  <div class="why-grid">
-    <div class="why-card reveal"><span class="why-icon">🎯</span><h4>Precision & Accuracy</h4><p>Every filing, report, and reconciliation handled with meticulous attention to detail.</p></div>
-    <div class="why-card reveal d1"><span class="why-icon">🔒</span><h4>Full Compliance</h4><p>We ensure your business stays fully compliant with all statutory and regulatory requirements.</p></div>
-    <div class="why-card reveal d2"><span class="why-icon">💡</span><h4>Strategic Insights</h4><p>Beyond compliance — we deliver financial intelligence for smarter business decisions.</p></div>
-    <div class="why-card reveal d3"><span class="why-icon">🤝</span><h4>Trusted Partnership</h4><p>Not just service providers — we are long-term partners invested in your success.</p></div>
+  <div class="inner">
+    <div class="why-head reveal">
+      <span class="tag">Why Choose Us</span>
+      <h2 class="h2">The PA Square Difference</h2>
+      <p class="lead" style="margin:0 auto;text-align:center;color:var(--mid)">We bring more than numbers — we bring peace of mind and financial clarity.</p>
+    </div>
+    <div class="why-grid">
+      <div class="wc reveal"><div class="wc-ico">🎯</div><h4>Precision & Accuracy</h4><p>Every filing, report, and reconciliation handled with meticulous attention to detail.</p></div>
+      <div class="wc reveal d1"><div class="wc-ico">🔒</div><h4>Full Compliance</h4><p>We keep your business fully compliant with all statutory and regulatory requirements.</p></div>
+      <div class="wc reveal d2"><div class="wc-ico">💡</div><h4>Strategic Insights</h4><p>Beyond compliance — financial intelligence that helps you make smarter decisions.</p></div>
+      <div class="wc reveal d3"><div class="wc-ico">🤝</div><h4>Trusted Partnership</h4><p>Not just service providers — long-term partners invested in your success.</p></div>
+    </div>
   </div>
 </section>
 
-<!-- PROCESS -->
+<!-- ═══ PROCESS — WHITE ═══ -->
 <section id="process">
-  <div class="process-header reveal">
-    <span class="tag">How We Work</span>
-    <h2 class="h2">Simple 4-Step Process</h2>
-    <p class="sub" style="margin:0 auto">Getting started with PA (Square) is easy and fully transparent.</p>
-  </div>
-  <div class="process-steps">
-    <div class="pstep reveal"><div class="pstep-num">01</div><h4>Consultation</h4><p>We understand your business needs, goals, and compliance requirements.</p></div>
-    <div class="pstep reveal d1"><div class="pstep-num">02</div><h4>Analysis</h4><p>Our team audits your current financial state and identifies compliance gaps.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-num">03</div><h4>Execution</h4><p>We handle all filings, reconciliations, and reporting with full precision.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-num">04</div><h4>Review & Report</h4><p>Clear reports and insights delivered so you stay informed always.</p></div>
+  <div class="inner">
+    <div class="proc-head reveal">
+      <span class="tag">How We Work</span>
+      <h2 class="h2">Simple 4-Step Process</h2>
+      <p class="lead" style="margin:0 auto;text-align:center;color:var(--mid)">Getting started with PA Square is easy, clear, and fully transparent.</p>
+    </div>
+    <div class="proc-steps">
+      <div class="proc-line"></div>
+      <div class="pstep reveal"><div class="ps-num">01</div><h4>Consultation</h4><p>We understand your business needs, goals, and compliance requirements.</p></div>
+      <div class="pstep reveal d1"><div class="ps-num">02</div><h4>Analysis</h4><p>Our team audits your current financial state and identifies compliance gaps.</p></div>
+      <div class="pstep reveal d2"><div class="ps-num">03</div><h4>Execution</h4><p>We handle all filings, reconciliations, and reporting with full precision.</p></div>
+      <div class="pstep reveal d3"><div class="ps-num">04</div><h4>Review & Report</h4><p>Clear reports delivered so you stay informed always.</p></div>
+    </div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- ═══ CONTACT — DARK NAVY ═══ -->
 <section id="contact">
-  <div class="contact-grid">
-    <div class="contact-info reveal">
-      <span class="tag">Get In Touch</span>
-      <h2 class="h2">Let's Work Together</h2>
-      <p class="sub">Have questions or ready to get started? Our team will get back to you promptly.</p>
-      <div class="c-items">
-        <div class="c-item"><div class="c-item-ico">📧</div><div class="c-item-body"><strong>Email Us</strong><a href="mailto:pa_square_enterprise@zohomail.in">pa_square_enterprise@zohomail.in</a></div></div>
-        <div class="c-item"><div class="c-item-ico">📞</div><div class="c-item-body"><strong>Call Us</strong><a href="tel:+919751962727">+91 97519 62727</a></div></div>
-        <div class="c-item"><div class="c-item-ico">📍</div><div class="c-item-body"><strong>Location</strong><span>Tamil Nadu, India</span></div></div>
-        <div class="c-item"><div class="c-item-ico">💬</div><div class="c-item-body"><strong>WhatsApp</strong><a href="https://wa.me/919751962727" target="_blank">Chat with us instantly</a></div></div>
+  <div class="inner">
+    <div class="contact-grid">
+      <div class="reveal">
+        <span class="tag">Get In Touch</span>
+        <h2 class="h2">Let's Work Together</h2>
+        <p class="lead">Have questions or ready to get started? Our team responds promptly.</p>
+        <div class="ci-list">
+          <div class="ci"><div class="ci-ico">📧</div><div class="ci-body"><strong>Email Us</strong><a href="mailto:pa_square_enterprise@zohomail.in">pa_square_enterprise@zohomail.in</a></div></div>
+          <div class="ci"><div class="ci-ico">📞</div><div class="ci-body"><strong>Call Us</strong><a href="tel:+919751962727">+91 97519 62727</a></div></div>
+          <div class="ci"><div class="ci-ico">📍</div><div class="ci-body"><strong>Location</strong><span>Tamil Nadu, India</span></div></div>
+          <div class="ci"><div class="ci-ico">💬</div><div class="ci-body"><strong>WhatsApp</strong><a href="https://wa.me/919751962727" target="_blank">Chat with us instantly</a></div></div>
+        </div>
       </div>
-    </div>
-    <div class="contact-form reveal d1">
-      <div class="cf-title">Send Us a Message</div>
-      <div class="form-row">
-        <div class="fg"><label>Your Name</label><input type="text" placeholder="Full name"/></div>
-        <div class="fg"><label>Phone</label><input type="tel" placeholder="+91 XXXXX XXXXX"/></div>
+      <div class="reveal d1">
+        <div class="cform">
+          <div class="cform-title">Send Us a Message</div>
+          <!-- Formspree — replace YOUR_FORM_ID with your actual Formspree form ID -->
+          <form id="contactForm">
+            <div class="frow">
+              <div class="fg"><label>Your Name *</label><input type="text" name="name" placeholder="Full name" required/></div>
+              <div class="fg"><label>Phone</label><input type="tel" name="phone" placeholder="+91 XXXXX XXXXX"/></div>
+            </div>
+            <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="you@example.com" required/></div>
+            <div class="fg">
+              <label>Service Interested In</label>
+              <select name="service">
+                <option value="">Select a service</option>
+                <option>GST Filings</option>
+                <option>Income Tax Return</option>
+                <option>TDS & TCS Filings</option>
+                <option>PF & ESI Filings</option>
+                <option>End-to-End Accounting</option>
+                <option>Financial Reporting</option>
+                <option>ROC Filings</option>
+                <option>MSME / GST Registration</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="fg"><label>Message *</label><textarea name="message" placeholder="Tell us about your requirements..." required></textarea></div>
+            <!-- hidden recipient -->
+            <input type="hidden" name="_replyto" value="pa_square_enterprise@zohomail.in"/>
+            <input type="hidden" name="_subject" value="New Enquiry — PA Square Enterprises Website"/>
+            <button type="submit" class="fsub" id="submitBtn">
+              <span id="btnText">Send Message</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </form>
+          <p class="form-note">
+            Your message is sent directly to <a href="mailto:pa_square_enterprise@zohomail.in">pa_square_enterprise@zohomail.in</a>.<br/>
+            We typically respond within 24 hours.
+          </p>
+        </div>
       </div>
-      <div class="fg"><label>Email</label><input type="email" placeholder="you@example.com"/></div>
-      <div class="fg">
-        <label>Service Interested In</label>
-        <select>
-          <option value="">Select a service</option>
-          <option>GST Filings</option><option>Income Tax Return</option>
-          <option>TDS & TCS Filings</option><option>PF & ESI Filings</option>
-          <option>End-to-End Accounting</option><option>Financial Reporting</option>
-          <option>ROC Filings</option><option>MSME / GST Registration</option><option>Other Service</option>
-        </select>
-      </div>
-      <div class="fg"><label>Message</label><textarea placeholder="Tell us about your requirements..."></textarea></div>
-      <button class="form-submit" id="submitBtn">Send Message →</button>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <p>© 2025 PA (Square) Enterprises. All Rights Reserved. Tamil Nadu, India.</p>
-  <div class="footer-links">  
-    <a href="#about">About</a><a href="#services">Services</a>
-    <a href="#process">Process</a><a href="#contact">Contact</a>
+  <p>© 2025 PA Square Enterprises. All Rights Reserved. Tamil Nadu, India.</p>
+  <div class="flinks">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
   </div>
 </footer>
-</div>
 
-<a class="wa-float" href="https://wa.me/919751962727" target="_blank">
+</div><!-- .page -->
+
+<!-- WHATSAPP FLOAT -->
+<a class="wa" href="https://wa.me/919751962727" target="_blank">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   Chat on WhatsApp
 </a>
 
 <script>
-/* ── ANIMATED FINANCE BACKGROUND CANVAS ── */
+/* ══ CUSTOM CURSOR ══ */
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
+animRing();
+document.querySelectorAll('a,button,.ti,.wc,.sc,.pstep,.ci').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';ring.style.width='56px';ring.style.height='56px';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='36px';ring.style.height='36px';});
+});
+
+/* ══ ANIMATED FINANCE BACKGROUND ══ */
 (function(){
   const canvas=document.getElementById('bg-canvas');
   const ctx=canvas.getContext('2d');
-  let W,H;
-  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=document.body.scrollHeight}
+  let W,H,items=[];
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=document.documentElement.scrollHeight;}
   window.addEventListener('resize',resize);
+  new ResizeObserver(resize).observe(document.body);
   resize();
 
-  const SYMS=['₹','$','%','GST','TDS','ITR','P&L','ROC','EMI','▲','▼','◆','✓'];
+  const SYMS=['₹','$','%','GST','TDS','ITR','P&L','ROC','EMI','▲','▼','◆','✓','∑','π'];
   function rand(a,b){return a+Math.random()*(b-a)}
 
-  const items=[];
-  for(let i=0;i<80;i++){
-    const isShape=Math.random()<0.45;
-    items.push({
+  function makeItem(){
+    const isShape=Math.random()<.45;
+    return{
       sym:SYMS[Math.floor(Math.random()*SYMS.length)],
-      isShape,shapeType:Math.floor(Math.random()*5),
+      isShape,st:Math.floor(Math.random()*5),
       x:rand(0,W),y:rand(0,H),
-      size:rand(10,46),speed:rand(.12,.45),
-      opacity:rand(.25,.9),drift:rand(-.25,.25),
-    });
+      size:rand(10,44),speed:rand(.1,.42),
+      op:rand(.18,.7),drift:rand(-.22,.22),
+    };
   }
+  for(let i=0;i<90;i++)items.push(makeItem());
 
-  function drawShapeItem(it){
-    const {x,y,size,opacity}=it;
-    ctx.strokeStyle=`rgba(201,168,76,${opacity})`;
-    ctx.fillStyle=`rgba(201,168,76,${opacity*0.12})`;
+  function drawShape(it){
+    const{x,y,size,op}=it;
+    ctx.strokeStyle=`rgba(200,168,75,${op*.9})`;
+    ctx.fillStyle=`rgba(200,168,75,${op*.12})`;
     ctx.lineWidth=.8;
-    switch(it.shapeType){
-      case 0:{ // mini line chart
+    switch(it.st){
+      case 0:{// line chart
         ctx.beginPath();
-        const pts=[[0,.6],[.3,.2],[.55,.45],[.8,.15],[1,0]];
-        pts.forEach(([px,py],i)=>{
-          const fx=x+px*size,fy=y+py*size;
-          i===0?ctx.moveTo(fx,fy):ctx.lineTo(fx,fy);
+        [[0,.6],[.3,.2],[.55,.45],[.8,.15],[1,0]].forEach(([px,py],i)=>{
+          i===0?ctx.moveTo(x+px*size,y+py*size):ctx.lineTo(x+px*size,y+py*size);
         });
         ctx.stroke();
         ctx.lineTo(x+size,y+size);ctx.lineTo(x,y+size);ctx.closePath();ctx.fill();
         break;}
-      case 1:{ // bar chart
-        const bw=size*.16;
+      case 1:{// bar chart
+        const bw=size*.15;
         [.5,.9,.65,.8,.45].forEach((h,i)=>{
           const bx=x+i*(bw+2.5),bh=size*h,by=y+size-bh;
           ctx.beginPath();ctx.rect(bx,by,bw,bh);ctx.fill();ctx.stroke();
         });break;}
-      case 2:{ // pie/donut
+      case 2:{// pie
         ctx.beginPath();ctx.arc(x,y,size*.5,0,Math.PI*2);ctx.stroke();
-        ctx.beginPath();ctx.moveTo(x,y);ctx.arc(x,y,size*.5,-.3,Math.PI*.9);ctx.closePath();ctx.fill();
+        ctx.beginPath();ctx.moveTo(x,y);ctx.arc(x,y,size*.5,-.4,Math.PI*.9);ctx.closePath();ctx.fill();
         break;}
-      case 3:{ // ledger lines
-        ctx.strokeRect(x,y,size*1.1,size*.75);
-        ctx.beginPath();
-        ctx.moveTo(x+size*.38,y);ctx.lineTo(x+size*.38,y+size*.75);
-        for(let r=1;r<4;r++){ctx.moveTo(x,y+r*size*.18);ctx.lineTo(x+size*1.1,y+r*size*.18);}
+      case 3:{// ledger
+        ctx.strokeRect(x,y,size*1.1,size*.7);
+        ctx.beginPath();ctx.moveTo(x+size*.38,y);ctx.lineTo(x+size*.38,y+size*.7);
+        for(let r=1;r<4;r++){ctx.moveTo(x,y+r*size*.17);ctx.lineTo(x+size*1.1,y+r*size*.17);}
         ctx.stroke();break;}
-      case 4:{ // coin stack
-        for(let c=2;c>=0;c--){
-          ctx.beginPath();ctx.ellipse(x,y-c*4,size*.5,size*.2,0,0,Math.PI*2);
-          ctx.fill();ctx.stroke();
-        }break;}
+      case 4:{// coin stack
+        for(let c=2;c>=0;c--){ctx.beginPath();ctx.ellipse(x,y-c*4,size*.5,size*.2,0,0,Math.PI*2);ctx.fill();ctx.stroke();}
+        break;}
     }
   }
 
@@ -499,12 +779,12 @@ footer p{font-size:13px;color:rgba(255,255,255,.22)}
     items.forEach(it=>{
       ctx.save();
       if(!it.isShape){
-        ctx.fillStyle=`rgba(201,168,76,${it.opacity})`;
-        ctx.font=`${it.size}px 'DM Sans',sans-serif`;
+        ctx.fillStyle=`rgba(200,168,75,${it.op})`;
+        ctx.font=`${it.size}px 'Outfit',sans-serif`;
         ctx.fillText(it.sym,it.x,it.y);
-      } else drawShapeItem(it);
+      } else drawShape(it);
       ctx.restore();
-      it.y-=it.speed; it.x+=it.drift;
+      it.y-=it.speed;it.x+=it.drift;
       if(it.y<-it.size*2){it.y=H+it.size;it.x=rand(0,W);}
       if(it.x<-60)it.x=W+60;
       if(it.x>W+60)it.x=-60;
@@ -512,59 +792,121 @@ footer p{font-size:13px;color:rgba(255,255,255,.22)}
     requestAnimationFrame(draw);
   }
   draw();
-
-  // Resize canvas height when page changes
-  const ro=new ResizeObserver(()=>{resize()});
-  ro.observe(document.body);
 })();
 
-/* ── SCROLL REVEAL ── */
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*70);});
-},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+/* ══ NAV SCROLL ══ */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60);},{ passive:true});
 
-/* ── ACTIVE NAV ── */
+/* ══ ACTIVE NAV ══ */
 const navAs=document.querySelectorAll('.nav-links a');
 const secs=document.querySelectorAll('section[id]');
 window.addEventListener('scroll',()=>{
   let cur='';
-  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-130)cur=s.id;});
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-140)cur=s.id;});
   navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
 },{passive:true});
 
-/* ── COUNT UP ── */
+/* ══ SCROLL REVEAL ══ */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('in'),i*70);});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+/* ══ COUNT UP ══ */
 function countUp(el){
-  const target=+el.dataset.target,suffix=el.dataset.suffix||'';
+  const t=+el.dataset.t,s=el.dataset.s||'';
   let start=null;
   requestAnimationFrame(function step(ts){
     if(!start)start=ts;
-    const p=Math.min((ts-start)/1800,1);
-    const e=1-(1-p)*(1-p);
-    el.textContent=Math.floor(e*target)+suffix;
+    const p=Math.min((ts-start)/1800,1),e=1-(1-p)*(1-p);
+    el.textContent=Math.floor(e*t)+s;
     if(p<1)requestAnimationFrame(step);
   });
 }
-const cObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){countUp(e.target);cObs.unobserve(e.target);}});
-},{threshold:0.5});
-document.querySelectorAll('.count-up').forEach(el=>cObs.observe(el));
+const co=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){countUp(e.target);co.unobserve(e.target);}});
+},{threshold:.5});
+document.querySelectorAll('.cu').forEach(el=>co.observe(el));
 
-/* ── HAMBURGER ── */
-document.getElementById('hamBtn').addEventListener('click',()=>{
+/* ══ HAMBURGER ══ */
+document.getElementById('hbg').addEventListener('click',()=>{
   document.getElementById('navLinks').classList.toggle('open');
 });
-navAs.forEach(a=>a.addEventListener('click',()=>{
-  document.getElementById('navLinks').classList.remove('open');
-}));
+navAs.forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
 
-/* ── FORM ── */
-document.getElementById('submitBtn').addEventListener('click',function(){
-  const n=document.querySelector('input[placeholder="Full name"]').value.trim();
-  if(!n){alert('Please enter your name.');return;}
-  this.textContent='✓ Message Sent!';
-  this.style.background='#27ae60';
-  setTimeout(()=>{this.textContent='Send Message →';this.style.background='';},3000);
+/* ══ CONTACT FORM — EmailJS (free, no backend needed) ══ */
+(function(){
+  // Load EmailJS SDK
+  const script=document.createElement('script');
+  script.src='https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+  script.onload=function(){
+    // Initialize with your EmailJS public key
+    // SETUP INSTRUCTIONS (one-time, free):
+    // 1. Go to https://www.emailjs.com and sign up (free)
+    // 2. Add an Email Service → connect your Zoho email
+    // 3. Create an Email Template with variables: {{name}}, {{email}}, {{phone}}, {{service}}, {{message}}
+    // 4. Replace the 3 values below with your actual IDs from EmailJS dashboard
+    emailjs.init('YOUR_PUBLIC_KEY'); // ← replace
+  };
+  document.head.appendChild(script);
+})();
+
+document.getElementById('contactForm').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const btn=document.getElementById('submitBtn');
+  const btnText=document.getElementById('btnText');
+  const form=this;
+
+  // Validate
+  const name=form.name.value.trim();
+  const email=form.email.value.trim();
+  const message=form.message.value.trim();
+  if(!name||!email||!message){
+    btn.classList.add('error');btnText.textContent='Please fill required fields';
+    setTimeout(()=>{btn.classList.remove('error');btnText.textContent='Send Message';},2500);
+    return;
+  }
+
+  btn.classList.add('sending');btnText.textContent='Sending…';
+  btn.disabled=true;
+
+  try{
+    // Try EmailJS first (if configured)
+    if(typeof emailjs!=='undefined' && emailjs._options && emailjs._options.publicKey !== 'YOUR_PUBLIC_KEY'){
+      await emailjs.send(
+        'YOUR_SERVICE_ID',   // ← replace with your EmailJS service ID
+        'YOUR_TEMPLATE_ID',  // ← replace with your EmailJS template ID
+        {
+          name: name,
+          email: email,
+          phone: form.phone.value||'Not provided',
+          service: form.service.value||'Not specified',
+          message: message,
+          to_email:'pa_square_enterprise@zohomail.in',
+        }
+      );
+      btn.classList.remove('sending');btn.classList.add('success');
+      btnText.textContent='✓ Message Sent!';
+      form.reset();
+      setTimeout(()=>{btn.classList.remove('success');btnText.textContent='Send Message';btn.disabled=false;},4000);
+    } else {
+      // Fallback: open mailto with pre-filled data
+      const sub=encodeURIComponent('Enquiry from PA Square Website — '+name);
+      const body=encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\nPhone: ${form.phone.value||'—'}\nService: ${form.service.value||'—'}\n\nMessage:\n${message}`
+      );
+      window.location.href=`mailto:pa_square_enterprise@zohomail.in?subject=${sub}&body=${body}`;
+      btn.classList.remove('sending');btn.classList.add('success');
+      btnText.textContent='✓ Opening Email…';
+      setTimeout(()=>{btn.classList.remove('success');btnText.textContent='Send Message';btn.disabled=false;},3000);
+    }
+  }catch(err){
+    btn.classList.remove('sending');btn.classList.add('error');
+    btnText.textContent='Failed — try WhatsApp';
+    btn.disabled=false;
+    setTimeout(()=>{btn.classList.remove('error');btnText.textContent='Send Message';},4000);
+  }
 });
 </script>
 </body>
