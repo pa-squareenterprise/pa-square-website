@@ -20,7 +20,7 @@
   --white:#fff;
 }
 html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Outfit',sans-serif;overflow-x:hidden;cursor:none}
+body{font-family:'Outfit',sans-serif;overflow-x:hidden}
 
 /* ── CURSOR ── */
 #cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,width .3s,height .3s,opacity .3s;mix-blend-mode:difference}
@@ -435,9 +435,6 @@ footer p{font-size:12.5px;color:rgba(255, 255, 255, 0.941)}
 </head>
 <body>
 
-<!-- CUSTOM CURSOR -->
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
 
 <!-- FLOATING FINANCE CANVAS -->
 <canvas id="bg-canvas"></canvas>
@@ -704,16 +701,6 @@ footer p{font-size:12.5px;color:rgba(255, 255, 255, 0.941)}
 </a>
 
 <script>
-/* ══ CUSTOM CURSOR ══ */
-const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
-animRing();
-document.querySelectorAll('a,button,.ti,.wc,.sc,.pstep,.ci').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';ring.style.width='56px';ring.style.height='56px';});
-  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='36px';ring.style.height='36px';});
-});
 
 /* ══ ANIMATED FINANCE BACKGROUND ══ */
 (function(){
