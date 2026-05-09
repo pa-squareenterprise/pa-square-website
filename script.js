@@ -220,7 +220,7 @@ if (canvas) {
 const ZOHO_FORMS = {
 
   enquiry:
-    "https://forms.zohopublic.in/pasquareenterprisezoho1/form/PASquareEnterprisesEnquiry/formperma/h82qMJ47mbPIibCaL0uUGVH6BJoJFC4lqGvhamVc_IU/js",
+    "https://forms.zohopublic.in/vinothkpasquareenterprisezoho1/form/PASquareEnterprisesEnquiry/formperma/h82qMJ47mbPIibCaL0uUGVH6BJoJFC4lqGvhamVc_IU/js",
 
   "gst-en":
     "https://forms.zohopublic.in/pasquareenterprisezoho1/form/GSTRegistrationForm/formperma/_eAZeZpZ6CFdg3vdcRmnte9iYOFcfHCiMEFH--YK3nA/js",
