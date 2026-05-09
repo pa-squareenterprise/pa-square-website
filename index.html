@@ -28,12 +28,12 @@ nav.scrolled{background:rgba(10,22,40,.96);backdrop-filter:blur(18px);box-shadow
 .logo-words{line-height:1.15}
 .logo-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#fff;display:block}
 .logo-sub{font-size:9.5px;font-weight:400;color:var(--gold2);letter-spacing:2.5px;text-transform:uppercase;display:block}
-.nav-links{display:flex;gap:28px;list-:none}
-.nav-links a{color:rgba(255,255,255,.65);text-decoration:none;font-size:13.5px;font-weight:500;position:relative;padding-bottom:3px;transition:color .2s}
+.nav-links{display:flex;gap:22px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.65);text-decoration:none;font-size:13px;font-weight:500;position:relative;padding-bottom:3px;transition:color .2s}
 .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--gold);transition:width .3s}
 .nav-links a:hover,.nav-links a.active{color:var(--gold)}
 .nav-links a:hover::after,.nav-links a.active::after{width:100%}
-.nav-cta{background:transparent!important;border:1.5px solid var(--gold)!important;color:var(--gold)!important;padding:8px 22px;border-radius:6px;transition:background .2s,color .2s!important}
+.nav-cta{background:transparent!important;border:1.5px solid var(--gold)!important;color:var(--gold)!important;padding:8px 18px;border-radius:6px;transition:background .2s,color .2s!important;white-space:nowrap}
 .nav-cta:hover{background:var(--gold)!important;color:var(--ink)!important}
 .nav-cta::after{display:none!important}
 .hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
@@ -91,7 +91,7 @@ section{position:relative;overflow:hidden}
 .dr-fill{height:100%;border-radius:2px}
 .dr-pct{color:rgba(255,255,255,.6);font-size:11px;font-weight:500;min-width:26px;text-align:right}
 
-/* ── ABOUT — WARM CREAM ── */
+/* ── ABOUT ── */
 #about{background:var(--cream)}
 #about .tag{color:var(--teal)}
 #about .h2{color:var(--ink)}
@@ -109,7 +109,7 @@ section{position:relative;overflow:hidden}
 .ti:hover{border-color:var(--teal);color:var(--ink);transform:translateX(5px);box-shadow:0 6px 20px rgba(13,122,107,.1)}
 .ti-dot{width:8px;height:8px;background:var(--teal);border-radius:50%;flex-shrink:0}
 
-/* ── SERVICES — DEEP TEAL ── */
+/* ── SERVICES ── */
 #services{background:linear-gradient(135deg,#062820 0%,#093d32 60%,#074535 100%)}
 #services .tag{color:var(--gold2)}
 #services .h2{color:#fff}
@@ -129,90 +129,42 @@ section{position:relative;overflow:hidden}
 .sc:hover ul li{color:rgba(255,255,255,.8)}
 .sc ul li::before{content:'';width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0}
 
-/* ══════════════════════════════════════
-   AI FEATURES SECTION — GRADIENT PURPLE/BLUE
-══════════════════════════════════════ */
-#ai-features{
-  background:linear-gradient(140deg,#0d0820 0%,#111830 40%,#0a1a2e 70%,#061422 100%);
-  position:relative;overflow:hidden;
-}
-#ai-features::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 20% 50%,rgba(108,63,197,.12),transparent 55%),
-             radial-gradient(ellipse at 80% 30%,rgba(26,110,191,.1),transparent 50%);
-  pointer-events:none;
-}
+/* ── AI FEATURES ── */
+#ai-features{background:linear-gradient(140deg,#0d0820 0%,#111830 40%,#0a1a2e 70%,#061422 100%);position:relative;overflow:hidden}
+#ai-features::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(108,63,197,.12),transparent 55%),radial-gradient(ellipse at 80% 30%,rgba(26,110,191,.1),transparent 50%);pointer-events:none}
 #ai-features .tag{color:#a78bfa}
 #ai-features .h2{color:#fff}
 .ai-head{text-align:center;max-width:680px;margin:0 auto 70px}
 .ai-head .lead{margin:0 auto;text-align:center;color:rgba(255,255,255,.55)}
-
-/* AI hero banner */
-.ai-banner{
-  display:flex;align-items:center;justify-content:center;gap:12px;
-  background:linear-gradient(90deg,rgba(108,63,197,.15),rgba(26,110,191,.15));
-  border:1px solid rgba(108,63,197,.3);
-  border-radius:100px;padding:10px 24px;
-  width:fit-content;margin:0 auto 20px;
-}
+.ai-banner{display:flex;align-items:center;justify-content:center;gap:12px;background:linear-gradient(90deg,rgba(108,63,197,.15),rgba(26,110,191,.15));border:1px solid rgba(108,63,197,.3);border-radius:100px;padding:10px 24px;width:fit-content;margin:0 auto 20px}
 .ai-banner-dot{width:8px;height:8px;background:#a78bfa;border-radius:50%;animation:ping 2s infinite}
 .ai-banner span{font-size:12px;font-weight:600;letter-spacing:2px;color:#a78bfa;text-transform:uppercase}
-
-/* AI cards grid */
 .ai-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:60px}
-.ai-card{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:22px;padding:36px 30px;
-  position:relative;overflow:hidden;
-  transition:all .4s cubic-bezier(.22,1,.36,1);
-}
-.ai-card::before{
-  content:'';position:absolute;inset:0;opacity:0;transition:opacity .4s;border-radius:22px;
-}
+.ai-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:36px 30px;position:relative;overflow:hidden;transition:all .4s cubic-bezier(.22,1,.36,1)}
+.ai-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .4s;border-radius:22px}
 .ai-card:nth-child(1)::before{background:radial-gradient(circle at 50% 0%,rgba(108,63,197,.15),transparent 60%)}
 .ai-card:nth-child(2)::before{background:radial-gradient(circle at 50% 0%,rgba(26,110,191,.15),transparent 60%)}
 .ai-card:nth-child(3)::before{background:radial-gradient(circle at 50% 0%,rgba(10,158,138,.15),transparent 60%)}
-.ai-card:hover{transform:translateY(-10px);border-color:rgba(167,139,250,.35)}
+.ai-card:hover{transform:translateY(-10px)}
 .ai-card:hover::before{opacity:1}
 .ai-card:nth-child(1):hover{border-color:rgba(108,63,197,.5)}
 .ai-card:nth-child(2):hover{border-color:rgba(26,110,191,.5)}
 .ai-card:nth-child(3):hover{border-color:rgba(10,158,138,.5)}
-
 .ai-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}
-.ai-icon-wrap{
-  width:54px;height:54px;border-radius:15px;
-  display:flex;align-items:center;justify-content:center;font-size:24px;
-  position:relative;
-}
+.ai-icon-wrap{width:54px;height:54px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:24px}
 .ai-card:nth-child(1) .ai-icon-wrap{background:rgba(108,63,197,.18);border:1px solid rgba(108,63,197,.3)}
 .ai-card:nth-child(2) .ai-icon-wrap{background:rgba(26,110,191,.18);border:1px solid rgba(26,110,191,.3)}
 .ai-card:nth-child(3) .ai-icon-wrap{background:rgba(10,158,138,.18);border:1px solid rgba(10,158,138,.3)}
-.ai-acc-badge{
-  font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;
-  letter-spacing:.5px;
-}
+.ai-acc-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.5px}
 .ai-card:nth-child(1) .ai-acc-badge{background:rgba(108,63,197,.2);color:#c4b5fd;border:1px solid rgba(108,63,197,.35)}
 .ai-card:nth-child(2) .ai-acc-badge{background:rgba(200,168,75,.15);color:var(--gold2);border:1px solid rgba(200,168,75,.3)}
 .ai-card:nth-child(3) .ai-acc-badge{background:rgba(10,158,138,.15);color:#5eead4;border:1px solid rgba(10,158,138,.3)}
-
 .ai-card h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;margin-bottom:10px}
 .ai-card p{font-size:13.5px;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:22px}
-
-/* AI feature list inside card */
 .ai-features-list{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
-.ai-feat{
-  display:flex;align-items:center;gap:10px;
-  font-size:13px;color:rgba(255,255,255,.65);
-  padding:10px 14px;
-  background:rgba(255,255,255,.04);border-radius:10px;
-  border:1px solid rgba(255,255,255,.06);
-  transition:all .25s;
-}
+.ai-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.65);padding:10px 14px;background:rgba(255,255,255,.04);border-radius:10px;border:1px solid rgba(255,255,255,.06);transition:all .25s}
 .ai-feat:hover{background:rgba(255,255,255,.07);color:#fff}
 .ai-feat-ico{font-size:15px;flex-shrink:0}
-
-/* Animated progress bar in AI cards */
 .ai-progress{margin-top:8px}
 .ai-progress-label{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.35);margin-bottom:6px}
 .ai-progress-track{height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
@@ -220,19 +172,8 @@ section{position:relative;overflow:hidden}
 .ai-card:nth-child(1) .ai-progress-fill{background:linear-gradient(90deg,#6C3FC5,#a78bfa)}
 .ai-card:nth-child(2) .ai-progress-fill{background:linear-gradient(90deg,#1A6EBF,#60a5fa)}
 .ai-card:nth-child(3) .ai-progress-fill{background:linear-gradient(90deg,#0A9E8A,#5eead4)}
-
-/* AI bottom stats strip */
-.ai-stats-strip{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;overflow:hidden;
-}
-.ai-stat{
-  padding:28px 20px;text-align:center;
-  border-right:1px solid rgba(255,255,255,.07);
-  transition:background .3s;
-}
+.ai-stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;overflow:hidden}
+.ai-stat{padding:28px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.07);transition:background .3s}
 .ai-stat:last-child{border-right:none}
 .ai-stat:hover{background:rgba(255,255,255,.06)}
 .ai-stat-n{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;display:block;margin-bottom:6px}
@@ -241,12 +182,10 @@ section{position:relative;overflow:hidden}
 .ai-stat:nth-child(3) .ai-stat-n{color:#60a5fa}
 .ai-stat:nth-child(4) .ai-stat-n{color:#5eead4}
 .ai-stat-l{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.5px}
-
-/* Animated AI circuit lines in background */
 .ai-circuit{position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.12}
 .ai-circuit svg{width:100%;height:100%}
 
-/* ── WHY US — LIGHT BLUE ── */
+/* ── WHY US ── */
 #why{background:linear-gradient(160deg,#EEF4FB 0%,#E4EEF8 50%,#DDE8F4 100%)}
 #why .tag{color:var(--slate)}
 #why .h2{color:var(--ink)}
@@ -259,7 +198,7 @@ section{position:relative;overflow:hidden}
 .wc h4{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--ink);margin-bottom:10px}
 .wc p{font-size:13px;color:var(--mid);line-height:1.7}
 
-/* ── PROCESS — WHITE ── */
+/* ── PROCESS ── */
 #process{background:#fff}
 #process .tag{color:var(--gold)}
 #process .h2{color:var(--ink)}
@@ -275,7 +214,38 @@ section{position:relative;overflow:hidden}
 .pstep h4{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:10px}
 .pstep p{font-size:13px;color:var(--mid);line-height:1.65}
 
-/* ── CONTACT — DARK NAVY ── */
+/* ════════════════════════════════════
+   FORMS SECTION — TABBED ZOHO FORMS
+════════════════════════════════════ */
+#forms-section{background:linear-gradient(160deg,#0f2744 0%,#1a3a5c 50%,#0f2744 100%)}
+#forms-section .tag{color:var(--gold2)}
+#forms-section .h2{color:#fff}
+.forms-head{text-align:center;max-width:600px;margin:0 auto 52px}
+.forms-head .lead{margin:0 auto;text-align:center;color:rgba(255,255,255,.5)}
+.form-tabs{display:flex;gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(200,168,75,.18);border-radius:16px;overflow:hidden;margin-bottom:40px;flex-wrap:wrap}
+.ftab{flex:1;padding:16px 12px;text-align:center;cursor:pointer;border:none;background:none;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,.45);border-right:1px solid rgba(200,168,75,.12);transition:all .3s;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.ftab:last-child{border-right:none}
+.ftab-ico{font-size:20px}
+.ftab-label{font-size:12px;line-height:1.3}
+.ftab-sub{font-size:10px;color:rgba(255,255,255,.28);letter-spacing:.5px}
+.ftab:hover{background:rgba(200,168,75,.06);color:rgba(255,255,255,.7)}
+.ftab.active{background:linear-gradient(135deg,rgba(200,168,75,.15),rgba(200,168,75,.08));color:var(--gold);border-bottom:2px solid var(--gold)}
+.ftab.active .ftab-sub{color:var(--gold2)}
+.form-panels{min-height:500px}
+.fpanel{display:none;animation:fadeInUp .4s ease}
+.fpanel.active{display:block}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.zoho-wrap{background:rgba(255,255,255,.97);border-radius:20px;overflow:hidden;border:1px solid rgba(200,168,75,.2);box-shadow:0 24px 60px rgba(0,0,0,.3);min-height:480px}
+.zoho-wrap-header{background:var(--ink);padding:20px 28px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(200,168,75,.2)}
+.zwh-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;background:rgba(200,168,75,.12);border:1px solid var(--bdr-gold)}
+.zwh-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;font-weight:600}
+.zwh-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;letter-spacing:.3px}
+.zoho-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;gap:16px;color:var(--mid);font-size:14px;background:#fff}
+.spinner{width:32px;height:32px;border:3px solid var(--cream3);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lang-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(13,122,107,.15);border:1px solid rgba(13,122,107,.3);color:#5eead4;font-size:10px;font-weight:600;padding:3px 10px;border-radius:100px;letter-spacing:1px;margin-left:8px}
+
+/* ── CONTACT ── */
 #contact{background:linear-gradient(160deg,#071020 0%,#0A1628 60%,#0d1e35 100%)}
 #contact .tag{color:var(--gold2)}
 #contact .h2{color:#fff}
@@ -316,11 +286,11 @@ section{position:relative;overflow:hidden}
 /* ── FOOTER ── */
 footer{background:#040b14;border-top:1px solid rgba(200,168,75,.12);padding:30px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
 footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
-.flinks{display:flex;gap:20px}
+.flinks{display:flex;gap:20px;flex-wrap:wrap}
 .flinks a{font-size:12.5px;color:rgba(255,255,255,.8);text-decoration:none;transition:color .2s}
 .flinks a:hover{color:var(--gold)}
 
-/* ── WHATSAPP FLOAT ── */
+/* ── WHATSAPP ── */
 .wa{position:fixed;bottom:28px;right:28px;z-index:600;background:#25D366;color:#fff;border-radius:50px;padding:12px 20px;display:flex;align-items:center;gap:9px;text-decoration:none;font-size:13.5px;font-weight:600;box-shadow:0 6px 28px rgba(37,211,102,.35);transition:all .25s;animation:waBounce 3s 2s ease-in-out infinite}
 @keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .wa:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 12px 36px rgba(37,211,102,.45);animation:none}
@@ -353,11 +323,12 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
   .hs{min-width:calc(50% - 1px)}
   .cform{padding:30px 22px}
   .ai-stats-strip{grid-template-columns:1fr 1fr}
+  .ftab{min-width:50%}
+  .ftab-label{font-size:10px}
 }
 </style>
 </head>
 <body>
-
 <canvas id="bg-canvas"></canvas>
 <div class="page">
 
@@ -376,6 +347,7 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
     <li><a href="#ai-features">AI Features</a></li>
     <li><a href="#why">Why Us</a></li>
     <li><a href="#process">Process</a></li>
+    <li><a href="#forms-section">Forms</a></li>
     <li><a href="#contact" class="nav-cta">Contact Us</a></li>
   </ul>
   <button class="hbg" id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -391,7 +363,7 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
       <p class="hero-sub">We help businesses manage accounting, taxation, and statutory compliance with precision, integrity, and forward-thinking strategy.</p>
       <div class="hero-btns">
         <a href="#services" class="btn-solid">Explore Services</a>
-        <a href="#contact" class="btn-line">Free Consultation</a>
+        <a href="#forms-section" class="btn-line">Get Started</a>
       </div>
       <div class="hero-stats">
         <div class="hs"><span class="hs-n cu" data-t="100" data-s="%">0%</span><span class="hs-l">Compliance</span></div>
@@ -480,30 +452,15 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
       <p class="lead reveal d1" style="max-width:300px;text-align:right">End-to-end solutions for statutory, accounting & compliance — all under one roof.</p>
     </div>
     <div class="svc-grid">
-      <div class="sc reveal">
-        <span class="sc-num">01</span><span class="sc-ico">📋</span>
-        <h3>Statutory Services</h3>
-        <ul><li>GST Filings</li><li>Income Tax Returns</li><li>TDS & TCS Filings</li><li>PF & ESI Filings</li></ul>
-      </div>
-      <div class="sc reveal d1">
-        <span class="sc-num">02</span><span class="sc-ico">📊</span>
-        <h3>Finance & Accounting</h3>
-        <ul><li>End-to-End Accounting</li><li>Financial Analysis</li><li>Bank Reconciliations</li><li>Financial Reporting</li></ul>
-      </div>
-      <div class="sc reveal d2">
-        <span class="sc-num">03</span><span class="sc-ico">🏢</span>
-        <h3>Business Compliance</h3>
-        <ul><li>ROC Filings</li><li>MSME Registration</li><li>GST Registration</li></ul>
-      </div>
+      <div class="sc reveal"><span class="sc-num">01</span><span class="sc-ico">📋</span><h3>Statutory Services</h3><ul><li>GST Filings</li><li>Income Tax Returns</li><li>TDS & TCS Filings</li><li>PF & ESI Filings</li></ul></div>
+      <div class="sc reveal d1"><span class="sc-num">02</span><span class="sc-ico">📊</span><h3>Finance & Accounting</h3><ul><li>End-to-End Accounting</li><li>Financial Analysis</li><li>Bank Reconciliations</li><li>Financial Reporting</li></ul></div>
+      <div class="sc reveal d2"><span class="sc-num">03</span><span class="sc-ico">🏢</span><h3>Business Compliance</h3><ul><li>ROC Filings</li><li>MSME Registration</li><li>GST Registration</li></ul></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════
-     AI FEATURES SECTION
-════════════════════════════════════ -->
+<!-- AI FEATURES -->
 <section id="ai-features">
-  <!-- Animated circuit background -->
   <div class="ai-circuit">
     <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <g stroke="#a78bfa" stroke-width="0.5" fill="none">
@@ -513,20 +470,14 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
         <path d="M700,450 L900,450 L900,360 L1100,360"/>
         <path d="M0,500 L150,500 L150,420 L350,420"/>
         <path d="M850,50 L850,180 L950,180 L950,300"/>
-        <circle cx="200" cy="150" r="3" fill="#a78bfa"/>
-        <circle cx="400" cy="80" r="3" fill="#a78bfa"/>
-        <circle cx="600" cy="200" r="3" fill="#60a5fa"/>
-        <circle cx="800" cy="200" r="3" fill="#60a5fa"/>
-        <circle cx="1000" cy="120" r="3" fill="#5eead4"/>
-        <circle cx="300" cy="400" r="3" fill="#a78bfa"/>
-        <circle cx="500" cy="320" r="3" fill="#60a5fa"/>
-        <circle cx="700" cy="450" r="3" fill="#5eead4"/>
-        <circle cx="900" cy="360" r="3" fill="#a78bfa"/>
-        <circle cx="950" cy="180" r="3" fill="#5eead4"/>
+        <circle cx="200" cy="150" r="3" fill="#a78bfa"/><circle cx="400" cy="80" r="3" fill="#a78bfa"/>
+        <circle cx="600" cy="200" r="3" fill="#60a5fa"/><circle cx="800" cy="200" r="3" fill="#60a5fa"/>
+        <circle cx="1000" cy="120" r="3" fill="#5eead4"/><circle cx="300" cy="400" r="3" fill="#a78bfa"/>
+        <circle cx="500" cy="320" r="3" fill="#60a5fa"/><circle cx="700" cy="450" r="3" fill="#5eead4"/>
+        <circle cx="900" cy="360" r="3" fill="#a78bfa"/><circle cx="950" cy="180" r="3" fill="#5eead4"/>
       </g>
     </svg>
   </div>
-
   <div class="inner">
     <div class="ai-head reveal">
       <div class="ai-banner"><div class="ai-banner-dot"></div><span>Powered by AI & Automation</span></div>
@@ -534,15 +485,9 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
       <h2 class="h2">Smart Automation for<br>100% Accuracy</h2>
       <p class="lead">We combine artificial intelligence with deep financial expertise to deliver automation-first solutions — eliminating errors, reducing delays, and ensuring full compliance across every domain.</p>
     </div>
-
     <div class="ai-grid">
-
-      <!-- CARD 1: AI Accounting -->
       <div class="ai-card reveal">
-        <div class="ai-card-header">
-          <div class="ai-icon-wrap">🤖</div>
-          <span class="ai-acc-badge">100% Accuracy</span>
-        </div>
+        <div class="ai-card-header"><div class="ai-icon-wrap">🤖</div><span class="ai-acc-badge">100% Accuracy</span></div>
         <h3>AI Accounting Automation</h3>
         <p>Eliminate manual errors with intelligent bookkeeping. Our AI engine auto-categorises transactions, reconciles accounts in real-time, and generates detailed financial reports with zero discrepancies.</p>
         <div class="ai-features-list">
@@ -557,13 +502,8 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
           <div class="ai-progress-track"><div class="ai-progress-fill" data-width="100%" style="width:0%"></div></div>
         </div>
       </div>
-
-      <!-- CARD 2: AI Taxation -->
       <div class="ai-card reveal d1">
-        <div class="ai-card-header">
-          <div class="ai-icon-wrap">🧮</div>
-          <span class="ai-acc-badge">Zero Penalties</span>
-        </div>
+        <div class="ai-card-header"><div class="ai-icon-wrap">🧮</div><span class="ai-acc-badge">Zero Penalties</span></div>
         <h3>AI Taxation Strategy</h3>
         <p>Our AI-powered tax engine analyses your financials, identifies optimal deductions, ensures 100% compliant filings, and provides a detailed tax strategy report — every quarter, without fail.</p>
         <div class="ai-features-list">
@@ -578,13 +518,8 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
           <div class="ai-progress-track"><div class="ai-progress-fill" data-width="100%" style="width:0%"></div></div>
         </div>
       </div>
-
-      <!-- CARD 3: AI Finance -->
       <div class="ai-card reveal d2">
-        <div class="ai-card-header">
-          <div class="ai-icon-wrap">📡</div>
-          <span class="ai-acc-badge">Predictive AI</span>
-        </div>
+        <div class="ai-card-header"><div class="ai-icon-wrap">📡</div><span class="ai-acc-badge">Predictive AI</span></div>
         <h3>AI Financial Intelligence</h3>
         <p>Go beyond reporting. Our finance AI delivers predictive cash flow forecasts, spending pattern analysis, and strategic growth recommendations tailored to your business model.</p>
         <div class="ai-features-list">
@@ -599,17 +534,13 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
           <div class="ai-progress-track"><div class="ai-progress-fill" data-width="97%" style="width:0%"></div></div>
         </div>
       </div>
-
-    </div><!-- end ai-grid -->
-
-    <!-- AI Stats Strip -->
+    </div>
     <div class="ai-stats-strip reveal">
       <div class="ai-stat"><span class="ai-stat-n cu" data-t="100" data-s="%">0%</span><span class="ai-stat-l">Accounting Accuracy</span></div>
       <div class="ai-stat"><span class="ai-stat-n cu" data-t="0" data-s=" Penalties">0 Penalties</span><span class="ai-stat-l">Tax Filings</span></div>
       <div class="ai-stat"><span class="ai-stat-n cu" data-t="97" data-s="%">0%</span><span class="ai-stat-l">Forecast Precision</span></div>
       <div class="ai-stat"><span class="ai-stat-n cu" data-t="3" data-s="x Faster">0x Faster</span><span class="ai-stat-l">vs Manual Process</span></div>
     </div>
-
   </div>
 </section>
 
@@ -648,9 +579,7 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
   </div>
 </section>
 
-<!-- ═══════════════════════════════════
-     FORMS SECTION — 4 TABBED ZOHO FORMS
-════════════════════════════════════ -->
+<!-- FORMS SECTION -->
 <section id="forms-section">
   <div class="inner">
     <div class="forms-head reveal">
@@ -658,7 +587,6 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
       <h2 class="h2">Choose Your Form</h2>
       <p class="lead">Select the form that matches your requirement. All submissions go directly to our team and we respond within 24 hours.</p>
     </div>
-
     <div class="form-tabs reveal">
       <button class="ftab active" onclick="switchTab('enquiry',this)">
         <span class="ftab-ico">💬</span>
@@ -681,9 +609,7 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
         <span class="ftab-sub">Income Tax Filing</span>
       </button>
     </div>
-
     <div class="form-panels">
-
       <!-- Panel 1: General Enquiry -->
       <div class="fpanel active" id="panel-enquiry">
         <div class="zoho-wrap">
@@ -698,7 +624,6 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
           <div id="zf-enquiry"></div>
         </div>
       </div>
-
       <!-- Panel 2: GST English -->
       <div class="fpanel" id="panel-gst-en">
         <div class="zoho-wrap">
@@ -713,7 +638,6 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
           <div id="zf-gst-en"></div>
         </div>
       </div>
-
       <!-- Panel 3: GST Tamil -->
       <div class="fpanel" id="panel-gst-ta">
         <div class="zoho-wrap">
@@ -728,7 +652,6 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
           <div id="zf-gst-ta"></div>
         </div>
       </div>
-
       <!-- Panel 4: ITR Checklist -->
       <div class="fpanel" id="panel-itr">
         <div class="zoho-wrap">
@@ -743,11 +666,10 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
           <div id="zf-itr"></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
-  
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="inner">
@@ -766,16 +688,6 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
       <div class="reveal d1">
         <div class="cform">
           <div class="cform-title">Send Us a Message</div>
-          <!--
-            ════════════════════════════════════════
-            FORMSPREE SETUP (100% free, no backend):
-            1. Go to https://formspree.io and sign up free
-            2. Click "New Form" → name it "PA Square Contact"
-            3. Set the email to: pa_square_enterprise@zohomail.in
-            4. Copy your form ID (looks like: xpwzgkno)
-            5. Replace YOUR_FORM_ID below with your actual ID
-            ════════════════════════════════════════
-          -->
           <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
             <div class="frow">
               <div class="fg"><label>Your Name *</label><input type="text" name="name" placeholder="Full name" required/></div>
@@ -786,22 +698,15 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
               <label>Service Interested In</label>
               <select name="service">
                 <option value="">Select a service</option>
-                <option>GST Filings</option>
-                <option>Income Tax Return</option>
-                <option>TDS & TCS Filings</option>
-                <option>PF & ESI Filings</option>
-                <option>End-to-End Accounting</option>
-                <option>Financial Reporting</option>
-                <option>ROC Filings</option>
-                <option>MSME / GST Registration</option>
-                <option>AI Accounting Automation</option>
-                <option>AI Taxation Strategy</option>
-                <option>AI Financial Intelligence</option>
-                <option>Other</option>
+                <option>GST Filings</option><option>Income Tax Return</option>
+                <option>TDS & TCS Filings</option><option>PF & ESI Filings</option>
+                <option>End-to-End Accounting</option><option>Financial Reporting</option>
+                <option>ROC Filings</option><option>MSME / GST Registration</option>
+                <option>AI Accounting Automation</option><option>AI Taxation Strategy</option>
+                <option>AI Financial Intelligence</option><option>Other</option>
               </select>
             </div>
             <div class="fg"><label>Message *</label><textarea name="message" placeholder="Tell us about your requirements..." required></textarea></div>
-            <!-- Formspree special fields -->
             <input type="hidden" name="_subject" value="New Enquiry — PA (Square) Enterprises Website"/>
             <input type="hidden" name="_next" value=""/>
             <input type="text" name="_gotcha" style="display:none"/>
@@ -824,6 +729,7 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
     <a href="#services">Services</a>
     <a href="#ai-features">AI Features</a>
     <a href="#process">Process</a>
+    <a href="#forms-section">Forms</a>
     <a href="#contact">Contact</a>
   </div>
 </footer>
@@ -835,6 +741,35 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
 </a>
 
 <script>
+/* ════ ZOHO FORMS TAB SWITCHER ════ */
+const ZOHO_FORMS={
+  'enquiry':'https://forms.zohopublic.in/vinothkpasquareenterprisezoho1/form/PASquareEnterprisesEnquiry/formperma/h82qMJ47mbPIibCaL0uUGVH6BJoJFC4lqGvhamVc_IU/js',
+  'gst-en':'https://forms.zohopublic.in/pasquareenterprisezoho1/form/GSTRegistrationForm/formperma/_eAZeZpZ6CFdg3vdcRmnte9iYOFcfHCiMEFH--YK3nA/js',
+  'gst-ta':'https://forms.zohopublic.in/pasquareenterprisezoho1/form/GSTRegistrationFormTamil/formperma/ieJIkA9Kbz6v1vvpjXgmQYULmIip13igYZiSbWUOAvA/js',
+  'itr':'https://forms.zohopublic.in/pasquareenterprisezoho1/form/ITRChecklist/formperma/nYrSHXH4u-wXmslsBDKprV-nIbIkd4pU0N_hy0xECgg/js'
+};
+const loaded={};
+function loadZohoForm(key){
+  if(loaded[key])return;
+  loaded[key]=true;
+  const container=document.getElementById('zf-'+key);
+  const loader=document.getElementById('load-'+key);
+  const script=document.createElement('script');
+  script.src=ZOHO_FORMS[key];
+  script.type='text/javascript';
+  script.onload=()=>{if(loader)loader.style.display='none';};
+  script.onerror=()=>{if(loader)loader.innerHTML='<p style="color:#c0392b;font-size:13px;text-align:center;padding:20px">⚠ Could not load form. <a href="https://wa.me/919751962727" style="color:#C8A84B">Contact us on WhatsApp</a></p>';};
+  container.appendChild(script);
+}
+function switchTab(key,btn){
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.fpanel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+key).classList.add('active');
+  loadZohoForm(key);
+}
+window.addEventListener('load',()=>loadZohoForm('enquiry'));
+
 /* ── FINANCE BACKGROUND CANVAS ── */
 (function(){
   const canvas=document.getElementById('bg-canvas');
@@ -846,9 +781,7 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
   resize();
   const SYMS=['₹','$','%','GST','TDS','ITR','P&L','ROC','EMI','▲','▼','◆','✓','∑','π'];
   function rand(a,b){return a+Math.random()*(b-a)}
-  function makeItem(){
-    return{sym:SYMS[Math.floor(Math.random()*SYMS.length)],isShape:Math.random()<.45,st:Math.floor(Math.random()*5),x:rand(0,W),y:rand(0,H),size:rand(10,44),speed:rand(.1,.42),op:rand(.18,.7),drift:rand(-.22,.22)};
-  }
+  function makeItem(){return{sym:SYMS[Math.floor(Math.random()*SYMS.length)],isShape:Math.random()<.45,st:Math.floor(Math.random()*5),x:rand(0,W),y:rand(0,H),size:rand(10,44),speed:rand(.1,.42),op:rand(.18,.7),drift:rand(-.22,.22)}}
   for(let i=0;i<90;i++)items.push(makeItem());
   function drawShape(it){
     const{x,y,size,op}=it;
@@ -865,7 +798,8 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
     ctx.clearRect(0,0,W,H);
     items.forEach(it=>{
       ctx.save();
-      if(!it.isShape){ctx.fillStyle=`rgba(200,168,75,${it.op})`;ctx.font=`${it.size}px 'Outfit',sans-serif`;ctx.fillText(it.sym,it.x,it.y)}else drawShape(it);
+      if(!it.isShape){ctx.fillStyle=`rgba(200,168,75,${it.op})`;ctx.font=`${it.size}px 'Outfit',sans-serif`;ctx.fillText(it.sym,it.x,it.y)}
+      else drawShape(it);
       ctx.restore();
       it.y-=it.speed;it.x+=it.drift;
       if(it.y<-it.size*2){it.y=H+it.size;it.x=rand(0,W)}
@@ -911,13 +845,11 @@ const co=new IntersectionObserver(entries=>{
 },{threshold:.5});
 document.querySelectorAll('.cu').forEach(el=>co.observe(el));
 
-/* ── AI PROGRESS BARS animate on scroll ── */
+/* ── AI PROGRESS BARS ── */
 const progObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
-      e.target.querySelectorAll('.ai-progress-fill').forEach(bar=>{
-        bar.style.width=bar.dataset.width;
-      });
+      e.target.querySelectorAll('.ai-progress-fill').forEach(bar=>{bar.style.width=bar.dataset.width});
       progObs.unobserve(e.target);
     }
   });
@@ -928,26 +860,21 @@ document.querySelectorAll('.ai-card').forEach(card=>progObs.observe(card));
 document.getElementById('hbg').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
 navAs.forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
 
-/* ── CONTACT FORM — FORMSPREE (direct email, no Outlook) ── */
+/* ── CONTACT FORM ── */
 document.getElementById('contactForm').addEventListener('submit',async function(e){
   e.preventDefault();
   const btn=document.getElementById('submitBtn');
   const btnText=document.getElementById('btnText');
   const form=this;
-
-  // Check if Formspree ID has been set
   const action=form.getAttribute('action');
   if(action.includes('YOUR_FORM_ID')){
-    // Friendly reminder if not yet configured
     btn.classList.add('error-state');
     btnText.textContent='Setup needed — see instructions';
     setTimeout(()=>{btn.classList.remove('error-state');btnText.textContent='Send Message';},3500);
     alert('Please replace YOUR_FORM_ID in the HTML with your actual Formspree form ID.\n\nSteps:\n1. Go to formspree.io\n2. Sign up free\n3. Create a form → set email to pa_square_enterprise@zohomail.in\n4. Copy the form ID and replace YOUR_FORM_ID in index.html');
     return;
   }
-
   btn.classList.add('sending');btnText.textContent='Sending…';btn.disabled=true;
-
   try{
     const data=new FormData(form);
     const res=await fetch(action,{method:'POST',body:data,headers:{Accept:'application/json'}});
@@ -956,9 +883,7 @@ document.getElementById('contactForm').addEventListener('submit',async function(
       btnText.textContent='✓ Message Sent!';
       form.reset();
       setTimeout(()=>{btn.classList.remove('success');btnText.textContent='Send Message';btn.disabled=false;},4000);
-    } else {
-      throw new Error('Server error');
-    }
+    }else{throw new Error('Server error')}
   }catch(err){
     btn.classList.remove('sending');btn.classList.add('error-state');
     btnText.textContent='Failed — try WhatsApp';
