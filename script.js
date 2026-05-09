@@ -12,7 +12,8 @@ window.scrollTo({
 top:0,
 behavior:"smooth"
 });
-
+  
+}
 /* ════ ZOHO FORMS TAB SWITCHER ════ */
 const ZOHO_FORMS={
   'enquiry':'https://forms.zohopublic.in/vinothkpasquareenterprisezoho1/form/PASquareEnterprisesEnquiry/formperma/h82qMJ47mbPIibCaL0uUGVH6BJoJFC4lqGvhamVc_IU/js',
@@ -41,5 +42,3 @@ function switchTab(key,btn){
   loadZohoForm(key);
 }
 window.addEventListener('load',()=>loadZohoForm('enquiry'));
-  
-}
