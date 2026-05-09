@@ -199,6 +199,37 @@ opacity:0.98;
 text-align:center;
 }
 
+/* ════════════════════════════════════
+   FORMS SECTION — TABBED ZOHO FORMS
+════════════════════════════════════ */
+#forms-section{background:linear-gradient(160deg,#071020 0%,#0A1628 60%,#0d1e35 100%)}
+#forms-section .tag{color:var(--gold2)}
+#forms-section .h2{color:#fff}
+.forms-head{text-align:center;max-width:600px;margin:0 auto 52px}
+.forms-head .lead{margin:0 auto;text-align:center;color:rgba(255,255,255,.5)}
+.form-tabs{display:flex;gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(200,168,75,.18);border-radius:16px;overflow:hidden;margin-bottom:40px;flex-wrap:wrap}
+.ftab{flex:1;padding:16px 12px;text-align:center;cursor:pointer;border:none;background:none;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,.45);border-right:1px solid rgba(200,168,75,.12);transition:all .3s;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.ftab:last-child{border-right:none}
+.ftab-ico{font-size:20px}
+.ftab-label{font-size:12px;line-height:1.3}
+.ftab-sub{font-size:10px;color:rgba(255,255,255,.28);letter-spacing:.5px}
+.ftab:hover{background:rgba(200,168,75,.06);color:rgba(255,255,255,.7)}
+.ftab.active{background:linear-gradient(135deg,rgba(200,168,75,.15),rgba(200,168,75,.08));color:var(--gold);border-bottom:2px solid var(--gold)}
+.ftab.active .ftab-sub{color:var(--gold2)}
+.form-panels{min-height:500px}
+.fpanel{display:none;animation:fadeInUp .4s ease}
+.fpanel.active{display:block}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.zoho-wrap{background:rgba(255,255,255,.97);border-radius:20px;overflow:hidden;border:1px solid rgba(200,168,75,.2);box-shadow:0 24px 60px rgba(0,0,0,.3);min-height:480px}
+.zoho-wrap-header{background:var(--ink);padding:20px 28px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(200,168,75,.2)}
+.zwh-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;background:rgba(200,168,75,.12);border:1px solid var(--bdr-gold)}
+.zwh-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;font-weight:600}
+.zwh-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;letter-spacing:.3px}
+.zoho-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;gap:16px;color:var(--mid);font-size:14px}
+.spinner{width:32px;height:32px;border:3px solid var(--cream3);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lang-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(13,122,107,.15);border:1px solid rgba(13,122,107,.3);color:#5eead4;font-size:10px;font-weight:600;padding:3px 10px;border-radius:100px;letter-spacing:1px;margin-left:8px}
+@media(max-width:600px){.ftab{min-width:50%}.ftab-label{font-size:10px}}
 
 /* VIDEO */
 
