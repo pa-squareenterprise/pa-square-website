@@ -579,186 +579,94 @@ footer p{font-size:12.5px;color:rgba(255,255,255,.9)}
   </div>
 </section>
 
+```html
 <!-- FORMS SECTION -->
 <section id="forms-section">
   <div class="inner">
     <div class="forms-head reveal">
-      <span class="tag">Get Started</span>
+      <span class="tag">
+        Get Started
+      </span>
       <h2 class="h2">
         Submit Your Requirements
       </h2>
       <p class="lead">
-        Choose the required service and submit your details securely through our online forms.
+        Click the required form below to open and submit your details securely through Zoho Forms.
       </p>
     </div>
-
-    <!-- TABS -->
-    <div class="form-tabs reveal d1">
-      <button class="ftab active"
-              onclick="switchTab('enquiry', this)">
-        <span class="ftab-ico">💬</span>
-        <span class="ftab-label">
-          General Enquiry
-        </span>
-        <span class="ftab-sub">
-          Contact Us
-        </span>
-      </button>
-      <button class="ftab"
-              onclick="switchTab('gst-en', this)">
-        <span class="ftab-ico">📋</span>
-        <span class="ftab-label">
-          GST Registration
-        </span>
-        <span class="ftab-sub">
-          English
-        </span>
-      </button>
-      <button class="ftab"
-              onclick="switchTab('gst-ta', this)">
-        <span class="ftab-ico">📋</span>
-        <span class="ftab-label">
-          GST பதிவு
-        </span>
-        <span class="ftab-sub">
-          தமிழ் • Tamil
-        </span>
-      </button>
-      <button class="ftab"
-              onclick="switchTab('itr', this)">
-        <span class="ftab-ico">✅</span>
-        <span class="ftab-label">
-          ITR Checklist
-        </span>
-        <span class="ftab-sub">
-          Income Tax Filing
-        </span>
-      </button>
-    </div>
-
-    <!-- FORM PANELS -->
-    <div class="form-panels reveal d2">
-
-      <!-- ENQUIRY -->
-      <div class="fpanel active"
-           id="panel-enquiry">
-        <div class="zoho-wrap">
-          <div class="zoho-wrap-header">
-            <div class="zwh-ico">
-              💬
-            </div>
-            <div>
-              <div class="zwh-title">
-                General Enquiry
-              </div>
-
-              <div class="zwh-sub">
-                Tell us about your requirements — we'll get back within 24 hours
-              </div>
-            </div>
-          </div>
-          <div id="load-enquiry"
-               class="zoho-loading">
-            <div class="spinner"></div>
-            <div>
-              Loading form...
-            </div>
-          </div>
-          <div id="zf-enquiry"></div>
-        </div>
+    <div class="svc-grid">
+      <!-- GENERAL ENQUIRY -->
+      <div class="sc reveal">
+        <span class="sc-num">01</span>
+        <span class="sc-ico">💬</span>
+        <h3>General Enquiry</h3>
+        <ul>
+          <li>Business Consultation</li>
+          <li>Accounting Queries</li>
+          <li>Tax & Compliance Support</li>
+        </ul>
+        <br>
+        <a href="https://forms.zohopublic.in/vinothkpasquareenterprisezoho1/form/PASquareEnterprisesEnquiry/formperma/h82qMJ47mbPIibCaL0uUGVH6BJoJFC4lqGvhamVc_IU"
+           target="_blank"
+           class="btn-solid">
+          Open Form
+        </a>
       </div>
-
       <!-- GST ENGLISH -->
-      <div class="fpanel"
-           id="panel-gst-en">
-        <div class="zoho-wrap">
-          <div class="zoho-wrap-header">
-            <div class="zwh-ico">
-              📋
-            </div>
-            <div>
-              <div class="zwh-title">
-                GST Registration
-                <span class="lang-badge">
-                  ENGLISH
-                </span>
-              </div>
-              <div class="zwh-sub">
-                Apply for GST registration online
-              </div>
-            </div>
-          </div>
-          <div id="load-gst-en"
-               class="zoho-loading">
-            <div class="spinner"></div>
-            <div>
-              Loading form...
-            </div>
-          </div>
-          <div id="zf-gst-en"></div>
-        </div>
+      <div class="sc reveal d1">
+        <span class="sc-num">02</span>
+        <span class="sc-ico">📋</span>
+        <h3>GST Registration</h3>
+        <ul>
+          <li>New GST Registration</li>
+          <li>Business Details</li>
+          <li>English Form</li>
+        </ul>
+        <br>
+        <a href="https://forms.zohopublic.in/pasquareenterprisezoho1/form/GSTRegistrationForm/formperma/_eAZeZpZ6CFdg3vdcRmnte9iYOFcfHCiMEFH--YK3nA"
+           target="_blank"
+           class="btn-solid">
+          Open Form
+        </a>
       </div>
-
       <!-- GST TAMIL -->
-      <div class="fpanel"
-           id="panel-gst-ta">
-        <div class="zoho-wrap">
-          <div class="zoho-wrap-header">
-            <div class="zwh-ico">
-              📋
-            </div>
-            <div>
-              <div class="zwh-title">
-                GST பதிவு
-                <span class="lang-badge">
-                  தமிழ்
-                </span>
-              </div>
-              <div class="zwh-sub">
-                GST பதிவு விண்ணப்பம்
-              </div>
-            </div>
-          </div>
-          <div id="load-gst-ta"
-               class="zoho-loading">
-            <div class="spinner"></div>
-            <div>
-              படிவம் ஏற்றப்படுகிறது...
-            </div>
-          </div>
-          <div id="zf-gst-ta"></div>
-        </div>
+      <div class="sc reveal d2">
+        <span class="sc-num">03</span>
+        <span class="sc-ico">📝</span>
+        <h3>GST பதிவு</h3>
+        <ul>
+          <li>GST பதிவு விண்ணப்பம்</li>
+          <li>தமிழ் படிவம்</li>
+          <li>Tamil Form</li>
+        </ul>
+        <br>
+        <a href="https://forms.zohopublic.in/pasquareenterprisezoho1/form/GSTRegistrationFormTamil/formperma/ieJIkA9Kbz6v1vvpjXgmQYULmIip13igYZiSbWUOAvA"
+           target="_blank"
+           class="btn-solid">
+          Open Form
+        </a>
       </div>
       <!-- ITR -->
-      <div class="fpanel"
-           id="panel-itr">
-        <div class="zoho-wrap">
-          <div class="zoho-wrap-header">
-            <div class="zwh-ico">
-              ✅
-            </div>
-            <div>
-              <div class="zwh-title">
-                ITR Checklist
-              </div>
-              <div class="zwh-sub">
-                Submit your income tax filing checklist
-              </div>
-            </div>
-          </div>
-          <div id="load-itr"
-               class="zoho-loading">
-            <div class="spinner"></div>
-            <div>
-              Loading form...
-            </div>
-          </div>
-          <div id="zf-itr"></div>
-        </div>
+      <div class="sc reveal d3">
+        <span class="sc-num">04</span>
+        <span class="sc-ico">✅</span>
+        <h3>ITR Checklist</h3>
+        <ul>
+          <li>Income Tax Filing</li>
+          <li>Checklist Submission</li>
+          <li>Document Collection</li>
+        </ul>
+        <br>
+        <a href="https://forms.zohopublic.in/pasquareenterprisezoho1/form/ITRChecklist/formperma/nYrSHXH4u-wXmslsBDKprV-nIbIkd4pU0N_hy0xECgg"
+           target="_blank"
+           class="btn-solid">
+          Open Form
+        </a>
       </div>
     </div>
   </div>
 </section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="inner">
